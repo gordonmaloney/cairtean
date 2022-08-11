@@ -25,6 +25,7 @@ const userSchema = mongoose.Schema(
         delay: Number,
         reviews: Number,
         tag: String,
+        level: String
       },
     ],
   },

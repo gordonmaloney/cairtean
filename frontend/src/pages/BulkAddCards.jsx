@@ -4,14 +4,13 @@ import { createCardsBulk } from "../features/cards/cardSlice";
 
 function BulkAddCards() {
   const [cardsData, setCardsData] = useState([
-    {
-      front: "bulk1",
-      back: "bulk1",
-    },
-    {
-      front: "bulk2",
-      back: "bulk2",
-    },
+    {back: "tunnag", front: "duck", level: "Intro"},
+    {back: "snog", front: "nice", level: "Intro"},
+    {back: "seo", front: "This is", level: "Intro"},
+    {back: "piseag", front: "kitten", level: "Intro"},
+    {back: "muc", front: "pig", level: "Intro"},
+    {back: "Mòrag", front: "Morag", level: "Intro"},
+    {back: "mòr", front: "big", level: "Intro"},
   ]);
 
   const dispatch = useDispatch();
