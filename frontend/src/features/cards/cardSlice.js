@@ -31,6 +31,34 @@ export const createCard = createAsyncThunk(
   }
 );
 
+
+//bulk add cards
+export const createCardsBulk = createAsyncThunk(
+  "cards/createbulk",
+  async (cardsData, thunkAPI) => {
+
+    cardsData.cardsData.map(card => {
+      card.date = new Date().getTime();
+      card.delay = 0;
+      card.tag = '';
+      card.reviews = 0
+    })
+
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await cardService.createCardsBulk(cardsData.cardsData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //Get user cards
 export const getCards = createAsyncThunk(
   "cards/get",
@@ -87,6 +115,19 @@ export const cardSlice = createSlice({
         state.cards = action.payload;
       })
       .addCase(createCard.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(createCardsBulk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createCardsBulk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.cards = action.payload;
+      })
+      .addCase(createCardsBulk.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

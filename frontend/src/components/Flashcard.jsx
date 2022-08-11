@@ -8,37 +8,39 @@ function Flashcard({ card, remaining }) {
 
   const dispatch = useDispatch();
 
-
-
   const handleUpdate = (updatedCard) => {
-
-    console.log("updated card: ", updatedCard)
+    console.log("updated card: ", updatedCard);
 
     dispatch(updateCard(updatedCard));
   };
 
   const handleWrong = (card) => {
+    const newDate = new Date()
+
     const updatedCard = { ...card };
-    updatedCard.date = parseInt(new Date().setHours(0, 0, 0, 1).valueOf())
+
+    console.log('updated card - ', updatedCard)
+    updatedCard.date = newDate.getTime()
     updatedCard.delay = 0;
     updatedCard.reviews++;
 
+    console.log(updatedCard);
     handleUpdate(updatedCard);
   };
 
   const handleCorrect = (card) => {
     const updatedCard = { ...card };
 
-    console.log(card)
+    console.log(card);
 
     let newDate = new Date().setDate(
       new Date().getDate() + (parseInt(card.delay) + 1) * 2
     );
 
-    console.log("new date: ", newDate)
+    console.log("new date: ", newDate);
 
     updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
-    updatedCard.delay = parseInt((card.delay + 1)) * 1.5;
+    updatedCard.delay = parseInt(card.delay + 1) * 1.5;
     updatedCard.reviews++;
 
     handleUpdate(updatedCard);
@@ -52,7 +54,7 @@ function Flashcard({ card, remaining }) {
     );
 
     updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
-    updatedCard.delay = parseInt((card.delay + 2)) * 2;
+    updatedCard.delay = parseInt(card.delay + 2) * 2;
     updatedCard.reviews++;
     handleUpdate(updatedCard);
   };
@@ -129,7 +131,7 @@ function Flashcard({ card, remaining }) {
           <div
             onClick={() => {
               setThreeBox(!threeBox);
-              handleEasy(card)
+              handleEasy(card);
             }}
             className={threeBox ? "onebox r2" : "onebox r1"}
           >
@@ -137,9 +139,9 @@ function Flashcard({ card, remaining }) {
           </div>
         </div>
       </div>
-      date: {card.date}<br/>
+      date: {card.date}
+      <br />
       delay: {card.delay}
-
     </>
   );
 }

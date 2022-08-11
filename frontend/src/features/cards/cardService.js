@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API_URL = "/api/cards/";
 
+
 //create cards
 const createCard = async (cardData, token) => {
   const config = {
@@ -11,6 +12,22 @@ const createCard = async (cardData, token) => {
   };
 
   const response = await axios.post(API_URL, cardData.cardData, config);
+
+  return response.data;
+};
+
+//create cards
+const createCardsBulk = async (cardsData, token) => {
+  
+  console.log(cardsData)
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(API_URL + "bulk", cardsData, config);
 
   return response.data;
 };
@@ -47,6 +64,7 @@ const cardService = {
   createCard,
   getCards,
   updateCard,
+createCardsBulk
 };
 
 export default cardService;

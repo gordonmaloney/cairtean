@@ -43,27 +43,30 @@ const createCard = asyncHandler(async (req, res) => {
 //@route post/api/card/bulk
 //@access private
 const createCardsBulk = asyncHandler(async (req, res) => {
-  if (!req.body.cards.length > 0) {
+
+  if (!req.body.length > 0) {
     res.status(400);
     throw new Error("Bulk adding cards requires an array");
   }
 
-  const cards = JSON.parse(req.body.cards);
+  //const cards = JSON.parse(req.body.cards);
 
-  const combinedCards = [...req.user.cards, ...cards];
+  const combinedCards = [...req.user.cards, ...req.body];
+
+  console.log(combinedCards)
 
   req.user.cards = combinedCards;
 
   req.user.save();
 
-  res.status(200).json(req.user);
+  res.status(200).json(req.user.cards);
 });
 
 //@desc update card
 //@route PUT /api/card
 //@access private
 const updateCard = asyncHandler(async (req, res) => {
- 
+
 
   console.log(req.body)
 

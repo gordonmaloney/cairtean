@@ -5,6 +5,7 @@ import { getCards, reset } from "../features/cards/cardSlice";
 import Spinner from "../components/Spinner";
 import AddCards from "./AddCards";
 import Review from "./Review";
+import BulkAddCards from "./BulkAddCards";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -30,13 +31,13 @@ export const Home = () => {
     return () => {
       dispatch(reset());
     };
-  }, [user, navigate, isError, message, dispatch]);
+  }, [user]);
 
   if (isLoading || cards.length < 1 || !user) {
     return <Spinner />;
   }
 
-  console.log(cards)
+  console.log(cards);
 
   return (
     <>
@@ -51,6 +52,8 @@ export const Home = () => {
       <AddCards />
 
       <Review cards={cards} />
+
+      <BulkAddCards />
     </>
   );
 };
