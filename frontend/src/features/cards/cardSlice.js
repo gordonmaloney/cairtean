@@ -37,7 +37,9 @@ export const createCardsBulk = createAsyncThunk(
   "cards/createbulk",
   async (cardsData, thunkAPI) => {
 
-    cardsData.cardsData.map(card => {
+    console.log('slice ', cardsData)
+    
+    cardsData.map(card => {
       card.date = new Date().getTime();
       card.delay = 0;
       card.tag = '';
@@ -46,7 +48,7 @@ export const createCardsBulk = createAsyncThunk(
 
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await cardService.createCardsBulk(cardsData.cardsData, token);
+      return await cardService.createCardsBulk(cardsData, token);
     } catch (error) {
       const message =
         (error.response &&
