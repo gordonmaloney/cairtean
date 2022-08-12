@@ -10,7 +10,6 @@ function Review({ cards }) {
     .filter((card) => new Date() > new Date(card.date))
     .sort((a, b) => a.date - b.date);
 
-  console.log(cards, cardsDue);
 
   const [card, setCard] = useState(cardsDue[0]);
 
@@ -22,7 +21,6 @@ function Review({ cards }) {
     return (
       <section>
         <center>
-          {card._id}
           <Flashcard card={card} remaining={cardsDue.length} />
         </center>
         <br />

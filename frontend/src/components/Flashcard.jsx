@@ -139,9 +139,6 @@ function Flashcard({ card, remaining }) {
           </div>
         </div>
       </div>
-      date: {card.date}
-      <br />
-      delay: {card.delay}
     </>
   );
 }

@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getCards, reset } from "../features/cards/cardSlice";
 import Spinner from "../components/Spinner";
-import AddCards from "./AddCards";
+
 import Review from "./Review";
-import BulkAddCards from "./BulkAddCards";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -42,18 +41,15 @@ export const Home = () => {
   return (
     <>
       <section className="heading">
-        <h1>Failte {user && user.name}</h1>
+        <h1>Fàilte, {user && user.name}</h1>
       </section>
 
       <section className="content">
-        you have got {cards && cards.length} cards
+        you have got {cards && cards.length} cards in your deck
       </section>
-
-      <AddCards />
 
       <Review cards={cards} />
 
-      <BulkAddCards />
     </>
   );
 };

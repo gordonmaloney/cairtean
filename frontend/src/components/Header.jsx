@@ -1,5 +1,5 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
 
@@ -20,6 +20,17 @@ function Header() {
         <Link to="/">Cairtean</Link>
       </div>
       <ul>
+      <li>
+          <NavLink to="../">Study</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/add">Add Cards</NavLink>
+        </li>
+        <li>
+          <NavLink to="/bulk">Bulk Add</NavLink>
+        </li>
+
         {user ? (
           <li>
             <button className="btn" onClick={onLogout}>
