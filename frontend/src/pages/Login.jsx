@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, reset } from "../features/auth/authSlice";
 import Spinner from "../components/Spinner";
-
+import { Button, FormLabel, TextField, Grid } from "@mui/material";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -15,8 +15,8 @@ function Login() {
 
   const { email, password } = formData;
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
@@ -45,12 +45,12 @@ function Login() {
     e.preventDefault();
 
     const userData = {
-      email, password
-    }
+      email,
+      password,
+    };
 
-    dispatch(login(userData))
+    dispatch(login(userData));
   };
-
 
   if (isLoading) {
     return <Spinner />;
@@ -62,40 +62,38 @@ function Login() {
         <h1>
           <FaSignInAlt /> Login
         </h1>
-        <p>Login and start setting goals</p>
       </section>
+      <br /><br />
 
-      <section className="form">
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              value={email}
-              placeholder="Enter your email"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Enter your password"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-block">
-              Submit
-            </button>
-          </div>
-        </form>
-      </section>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            type="email"
+            className="form-control"
+            id="email"
+            name="email"
+            value={email}
+            placeholder="Enter your email"
+            onChange={onChange}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            type="password"
+            className="form-control"
+            id="password"
+            name="password"
+            value={password}
+            placeholder="Enter your password"
+            onChange={onChange}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" onClick={onSubmit}>
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
     </>
   );
 }

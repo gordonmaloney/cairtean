@@ -37,11 +37,7 @@ function BulkAddCards() {
   const bulkAddLevel = (level) => {
     console.log(WORDS.filter((word) => word.level == level));
 
-    dispatch(
-      createCardsBulk([
-        ...WORDS.filter((word) => word.level == level),
-      ])
-    );
+    dispatch(createCardsBulk([...WORDS.filter((word) => word.level == level)]));
   };
 
   //modal
@@ -52,23 +48,29 @@ function BulkAddCards() {
 
   const handleSelectLevel = (settingLevel) => {
     handleOpen();
-    setLevel(settingLevel.target.textContent)
-  }
+    setLevel(settingLevel.target.textContent);
+  };
 
   return (
     <>
-  
-        <h3>To add the vocabulary from a Duolingo level, just select the level below:</h3>
+      <h3>
+        To add the vocabulary from a Duolingo level, just select the level
+        below:
+      </h3>
 
-        {levels.map((level) => (
-          <Button variant="contained" sx={{margin: 1}} size="small"
-            onClick={(level) => {
-              handleSelectLevel(level)
-            }}
-          >
-            {level}
-          </Button>
-        ))}
+      {levels.map((level, index) => (
+        <Button
+          variant="contained"
+          sx={{ margin: 1 }}
+          size="small"
+          onClick={(level) => {
+            handleSelectLevel(level);
+          }}
+          key={index}
+        >
+          {level}
+        </Button>
+      ))}
 
       <Modal
         open={open}
@@ -77,11 +79,18 @@ function BulkAddCards() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          Add all {WORDS.filter((word) => word.level == level).length} words from {level} to your deck?
-          <br /><br />
-          <Button variant="contained" onClick={() => bulkAddLevel(level)}>Confirm</Button>
-          <br /><br />
-          <Button variant="contained" onClick={() => handleClose()}>Cancel</Button>
+          Add all {WORDS.filter((word) => word.level == level).length} words
+          from {level} to your deck?
+          <br />
+          <br />
+          <Button variant="contained" onClick={() => bulkAddLevel(level)}>
+            Confirm
+          </Button>
+          <br />
+          <br />
+          <Button variant="contained" onClick={() => handleClose()}>
+            Cancel
+          </Button>
         </Box>
       </Modal>
     </>

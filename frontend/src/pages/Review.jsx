@@ -1,8 +1,5 @@
-import { useEffect } from "react";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import Flashcard from "../components/Flashcard";
-import { updateCard } from "../features/cards/cardSlice";
 
 function Review({ cards }) {
   

@@ -28,10 +28,26 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
+//update streak
+const updateStreak = async (userData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.put(API_URL + "streak", userData, config);
+
+  localStorage.setItem("user", JSON.stringify(response.data));
+
+  return response.data;
+};
+
 const authService = {
   register,
   logout,
   login,
+  updateStreak
 };
 
 export default authService;

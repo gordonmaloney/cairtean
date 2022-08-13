@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCard } from "../features/cards/cardSlice";
+import { updateStreak } from "../features/auth/authSlice";
 
 function Flashcard({ card, remaining }) {
   const [threeBox, setThreeBox] = useState(false);
@@ -9,35 +10,58 @@ function Flashcard({ card, remaining }) {
   const dispatch = useDispatch();
 
   const handleUpdate = (updatedCard) => {
-    console.log("updated card: ", updatedCard);
-
     dispatch(updateCard(updatedCard));
+
+    //check streak
+    let today = new Date(new Date().setHours(0, 0, 0, 1));
+
+    if (user.last == new Date(today).setDate(new Date().getDate() - 1)) {
+      let updatedUserData = {
+        ...user,
+        streak: parseInt(user.streak) + 1,
+        last: new Date().setHours(0, 0, 1).valueOf(),
+      };
+
+      dispatch(updateStreak(updatedUserData));
+    } else if (user.last < new Date(today).setDate(new Date().getDate() - 1)) {
+      let updatedUserData = {
+        ...user,
+        streak: 1,
+        last: new Date().setHours(0, 0, 1).valueOf(),
+      };
+
+      dispatch(updateStreak(updatedUserData));
+    } else {
+      let updatedUserData = {
+        ...user,
+        streak: parseInt(user.streak),
+        last: new Date().setHours(0, 0, 0, 1).valueOf(),
+      };
+
+      dispatch(updateStreak(updatedUserData));
+    }
   };
 
+  const { user } = useSelector((state) => state.auth);
+
   const handleWrong = (card) => {
-    const newDate = new Date()
+    const newDate = new Date();
 
     const updatedCard = { ...card };
 
-    console.log('updated card - ', updatedCard)
-    updatedCard.date = newDate.getTime()
+    updatedCard.date = newDate.getTime();
     updatedCard.delay = 0;
     updatedCard.reviews++;
 
-    console.log(updatedCard);
     handleUpdate(updatedCard);
   };
 
   const handleCorrect = (card) => {
     const updatedCard = { ...card };
 
-    console.log(card);
-
     let newDate = new Date().setDate(
       new Date().getDate() + (parseInt(card.delay) + 1) * 2
     );
-
-    console.log("new date: ", newDate);
 
     updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
     updatedCard.delay = parseInt(card.delay + 1) * 1.5;

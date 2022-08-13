@@ -1,63 +1,84 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {createCard} from '../features/cards/cardSlice'
+import { createCard } from "../features/cards/cardSlice";
+import { Button, FormLabel, TextField, Grid } from "@mui/material";
 
 function AddCards() {
-    
   const [cardData, setCardData] = useState({
-    "front": "",
-    "back": "",
-    "date": "",
-    "delay": 1,
-    "reviews": 0,
-    "tag": ""
+    front: "",
+    back: "",
+    date: "",
+    delay: 1,
+    reviews: 0,
+    tag: "",
   });
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    if (!cardData.front || !cardData.back) {
+      console.log("need to enter a front and back field");
+    }
 
-    dispatch(createCard({cardData}))
-    setCardData({
-        "front": "",
-        "back": "",
-        "date": "",
-        "delay": 1,
-        "reviews": 0,
-        "tag": ""
-      })
+    if (cardData.front && cardData.back) {
+      dispatch(createCard({ cardData }));
+      setCardData({
+        front: "",
+        back: "",
+        date: "",
+        delay: 1,
+        reviews: 0,
+        tag: "",
+      });
+    }
   };
 
   return (
-    <section className="form">
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label htmlFor="text">Front</label>
-          <input
+    <section>
+    <h2>Add new cards to your deck here:</h2> <br/><br/>
+      <Grid container spacing={2}>
+        <Grid item xs={2} style={{ display: "flex", alignItems: "center" }}>
+          <FormLabel htmlFor="front">Front</FormLabel>
+        </Grid>
+        <Grid item xs={10}>
+          <TextField
+            sx={{ width: "100%" }}
             type="text"
             name="front"
             id="front"
             value={cardData.front}
             placeholder="Enter the front side of the card here"
-            onChange={(e) => setCardData({...cardData, front: e.target.value})}
+            onChange={(e) =>
+              setCardData({ ...cardData, front: e.target.value })
+            }
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="text">Back</label>
-          <input
+        </Grid>
+
+        <Grid item xs={2} style={{ display: "flex", alignItems: "center" }}>
+          <FormLabel htmlFor="back">Back</FormLabel>
+        </Grid>
+        <Grid item xs={10}>
+          <TextField
+            sx={{ width: "100%" }}
             type="text"
             name="back"
             id="back"
             value={cardData.back}
             placeholder="Enter the back of the card here"
-            onChange={(e) => setCardData({...cardData, back: e.target.value})}
+            onChange={(e) => setCardData({ ...cardData, back: e.target.value })}
           />
-        </div>
-        <div className="form-group">
-          <button className="btn btn-block">Create New Card</button>
-        </div>
-      </form>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            onClick={onSubmit}
+            disabled={!cardData.front || !cardData.back}
+          >
+            Create New Card
+          </Button>
+        </Grid>
+      </Grid>
     </section>
   );
 }

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
 import { register, reset } from "../features/auth/authSlice";
 import Spinner from "../components/Spinner";
+import { Button, TextField, Grid } from "@mui/material";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -70,60 +71,60 @@ function Register() {
         </h1>
         <p>Please create an account</p>
       </section>
+      <br />
+      <br />
 
-      <section className="form">
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              name="name"
-              value={name}
-              placeholder="Enter your name"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              value={email}
-              placeholder="Enter your email"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Enter password"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password2"
-              name="password2"
-              value={password2}
-              placeholder="Confirm password"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-block">
-              Submit
-            </button>
-          </div>
-        </form>
-      </section>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            type="text"
+            className="form-control"
+            id="name"
+            name="name"
+            value={name}
+            placeholder="Enter your name"
+            onChange={onChange}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            type="email"
+            className="form-control"
+            id="email"
+            name="email"
+            value={email}
+            placeholder="Enter your email"
+            onChange={onChange}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            type="password"
+            className="form-control"
+            id="password"
+            name="password"
+            value={password}
+            placeholder="Enter password"
+            onChange={onChange}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            type="password"
+            className="form-control"
+            id="password2"
+            name="password2"
+            value={password2}
+            placeholder="Confirm password"
+            onChange={onChange}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button onClick={onSubmit} variant="contained">
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
     </>
   );
 }
