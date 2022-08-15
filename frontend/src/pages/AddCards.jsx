@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createCard } from "../features/cards/cardSlice";
 import { Button, FormLabel, TextField, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function AddCards() {
   const [cardData, setCardData] = useState({
@@ -14,6 +15,7 @@ function AddCards() {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     if (!cardData.front || !cardData.back) {
@@ -35,6 +37,8 @@ function AddCards() {
 
   return (
     <section>
+      <Button onClick={() => navigate('../addlanding')}>Back</Button>
+      
     <h2>Add new cards to your deck here:</h2> <br/><br/>
       <Grid container spacing={2}>
         <Grid item xs={2} style={{ display: "flex", alignItems: "center" }}>

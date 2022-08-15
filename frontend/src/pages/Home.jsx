@@ -1,12 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getCards, reset, isError, isLoading } from "../features/cards/cardSlice";
+import {
+  getCards,
+  reset,
+  isError,
+  isLoading,
+} from "../features/cards/cardSlice";
 import { updateStreak } from "../features/auth/authSlice";
-
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import { KeyboardEvent } from "react";
+import { Box } from "@mui/system";
+import { Button } from "@mui/material";
 import Review from "./Review";
+import { Menu } from "./Menu";
 
 export const Home = () => {
+
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -68,6 +79,7 @@ export const Home = () => {
 
   return (
     <>
+    
       <section className="heading">
         <h1>Fàilte, {user && user.name}</h1>
       </section>
@@ -85,8 +97,7 @@ export const Home = () => {
           : "You haven't studied yet today"}
       </section>
 
-        <Review cards={cards} />
-
+      <Review cards={cards} />
     </>
   );
 };

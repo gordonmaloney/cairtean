@@ -35,9 +35,7 @@ function Review({ cards, noRemaining }) {
   
   if (cardsDue.length - index > 0) {
     return (
-      <section><br/><br/>
-        index: {index} <br/>
-        cardsDueLength: {cardsDue.length}
+      <section>
         <center>
           <Flashcard
             card={cardsDue[index]}

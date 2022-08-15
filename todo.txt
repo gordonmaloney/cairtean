@@ -1,0 +1,34 @@
+@ functionality
+
+- untag as hard
+- tag as 'known'
+- close bulk add modal
+- check for duplicate cards
+- check for bulk duplicates
+- browse cards
+
+
+@ content
+
+- 100% width side bar
+- push kofi
+- about page
+- how it works page
+
+
+
+@ design
+
+- settle on colour scheme
+
+@ misc
+
+- deploy
+- get beta testers
+- improve algorithm
+
+
+@ future 
+
+- review 
+- think about some kind of social aspect

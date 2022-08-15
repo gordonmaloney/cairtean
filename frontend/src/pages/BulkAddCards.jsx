@@ -6,7 +6,7 @@ import { WORDS } from "./WORDS.js";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Button } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 const style = {
   position: "absolute",
   top: "50%",
@@ -23,6 +23,7 @@ function BulkAddCards() {
   const levels = Array.from(new Set(WORDS.map((word) => word.level)));
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const bulkAddLevel = (level) => {
     console.log(WORDS.filter((word) => word.level == level));
@@ -43,6 +44,8 @@ function BulkAddCards() {
 
   return (
     <>
+            <Button onClick={() => navigate('../addlanding')}>Back</Button>
+
       <h3>
         To add the vocabulary from a Duolingo level, just select the level
         below:

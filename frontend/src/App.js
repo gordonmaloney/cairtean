@@ -7,9 +7,8 @@ import BulkAddCards from "./pages/BulkAddCards";
 import { Home } from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Review from "./pages/Review";
-import { Review2 } from "./pages/Review2";
-import { Review3 } from "./pages/Review3";
+import { Browse } from "./pages/Browse";
+import { AddLanding } from "./pages/AddLanding";
 
 function App() {
   return (
@@ -22,10 +21,14 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
-            <Route path="/study" element={<Review3 />} />
+            <Route path="/study" element={<Home />} />
 
             <Route path="/add" element={<AddCards />} />
             <Route path="/bulk" element={<BulkAddCards />} />
+
+            <Route path="/browse" element={<Browse />} />
+            <Route path="/addLanding" element={<AddLanding />} />
+
 
           </Routes>
         </div>

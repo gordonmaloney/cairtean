@@ -202,3 +202,20 @@ width: 300px;
   box-shadow: none;
 }
 
+
+.menuCard {
+  width: 90%;
+  padding: 20px;
+  margin: 20px;
+  background-color: lightcyan;
+  height: 170px;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+td, th {
+  border-bottom: 1px solid black;
+  padding: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
