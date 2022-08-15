@@ -10,7 +10,6 @@ import {
 import { updateStreak } from "../features/auth/authSlice";
 
 import Review from "./Review";
-import { Animicon } from "../components/AnimIcon";
 
 export const Review3 = () => {
   const navigate = useNavigate();

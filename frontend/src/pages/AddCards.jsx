@@ -22,6 +22,12 @@ function AddCards() {
       console.log("need to enter a front and back field");
     }
 
+
+
+    //check for suplicate
+      //import all cards, map front, then back
+      
+
     if (cardData.front && cardData.back) {
       dispatch(createCard({ cardData }));
       setCardData({

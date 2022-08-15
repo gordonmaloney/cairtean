@@ -6,6 +6,7 @@ function Review({ cards, noRemaining }) {
 
   const [cardsDue, setCardsDue] = useState(
     cards
+      .filter(card => card.tag != "known" )
       .filter((card) => new Date() > new Date(card.date))
       .sort((a, b) => a.date - b.date)
   );
@@ -38,7 +39,7 @@ function Review({ cards, noRemaining }) {
       <section>
         <center>
           <Flashcard
-            card={cardsDue[index]}
+            cardOne={cardsDue[index]}
             remaining={cardsDue.length - index}
             pushWrongCard={(wrongCard) => pushWrongCard(wrongCard)}
             incrementIndex={incrementIndex}

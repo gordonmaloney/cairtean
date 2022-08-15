@@ -11,7 +11,6 @@ export const Animicon = ({icon, click, enter, autoplay, reSetAutoplay, canvas, f
   
     
     useEffect(() => {
-      console.log(autoplay)
       if (autoplay) {
         setLoop(true);
         setPlay(true)

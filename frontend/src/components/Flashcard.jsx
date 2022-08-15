@@ -6,7 +6,9 @@ import { updateStreak } from "../features/auth/authSlice";
 import Fab from "@mui/material/Fab";
 import { Grid } from "@mui/material";
 
-function Flashcard({ card, remaining, pushWrongCard, incrementIndex }) {
+function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
+  const [card, setCard] = useState(cardOne);
+
   const [threeBox, setThreeBox] = useState(false);
 
   const dispatch = useDispatch();
@@ -43,7 +45,7 @@ function Flashcard({ card, remaining, pushWrongCard, incrementIndex }) {
       dispatch(updateStreak(updatedUserData));
     }
 
-    incrementIndex()
+    incrementIndex();
   };
 
   const { user } = useSelector((state) => state.auth);
@@ -57,7 +59,7 @@ function Flashcard({ card, remaining, pushWrongCard, incrementIndex }) {
     updatedCard.delay = 0;
     updatedCard.reviews++;
 
-    pushWrongCard(updatedCard)
+    pushWrongCard(updatedCard);
     handleUpdate(updatedCard);
   };
 
@@ -104,8 +106,27 @@ function Flashcard({ card, remaining, pushWrongCard, incrementIndex }) {
   const markHard = () => {
     let updatedCard = { ...card };
     updatedCard.tag = "hard";
+
+    setCard({ ...card, tag: "hard" });
+    dispatch(updateCard(updatedCard));
+  };
+
+  const markKnown = () => {
+    let updatedCard = { ...card };
+    updatedCard.tag = "known";
+    setCard({ ...card, tag: "known" });
+
     console.log(updatedCard);
-    handleUpdate(updatedCard);
+    dispatch(updateCard(updatedCard));
+    incrementIndex();
+  };
+
+  const unTag = () => {
+    let updatedCard = { ...card };
+    updatedCard.tag = "";
+    setCard({ ...card, tag: "" });
+
+    dispatch(updateCard(updatedCard));
   };
 
   return (
@@ -221,15 +242,41 @@ function Flashcard({ card, remaining, pushWrongCard, incrementIndex }) {
           }}
         >
           <center>
-            <Fab
-              style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-              onClick={() => markHard(card)}
-            >
-              !!!
-            </Fab>
+            {card.tag == "" ? (
+              <>
+                <Fab
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                  onClick={() => markHard(card)}
+                >
+                  hard
+                </Fab>
+
+                <Fab
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                  onClick={() => markKnown(card)}
+                >
+                  known
+                </Fab>
+              </>
+            ) : (
+              <>
+                <Fab
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                  onClick={() => unTag(card)}
+                >
+                  untag
+                </Fab>
+              </>
+            )}
           </center>
         </Grid>
       </Grid>

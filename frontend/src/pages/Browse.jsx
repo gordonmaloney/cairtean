@@ -32,21 +32,25 @@ export const Browse = () => {
     <div>
       <center>
         <table>
-          <tr>
-            <th>Front</th>
-            <th>Back</th>
-            <th>Next due</th>
-          </tr>
-
-          {[...cards]
-          .sort((a, b) => a.date - b.date)
-          .map((card) => (
+          <tbody>
             <tr>
-              <td>{card.front}</td>
-              <td>{card.back}</td>
-              <td>{new Date(card.date).toLocaleDateString("en-UK")}</td>
+              <th>Front</th>
+              <th>Back</th>
+              <th>Next due</th>
+              <th>Tag</th>
             </tr>
-          ))}
+
+            {[...cards]
+              .sort((a, b) => a.date - b.date)
+              .map((card, index) => (
+                <tr key={index}>
+                  <td>{card.front}</td>
+                  <td>{card.back}</td>
+                  <td>{new Date(card.date).toLocaleDateString("en-UK")}</td>
+                  <td>{card.tag ? card.tag : "-"}</td>
+                </tr>
+              ))}
+          </tbody>
         </table>
       </center>
     </div>

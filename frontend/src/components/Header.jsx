@@ -20,7 +20,7 @@ function Header() {
   const [drawer, setDrawer] = useState(false);
 
   const toggleDrawer =
-    (anchor: Anchor, open: boolean) => (event: KeyboardEvent | MouseEvent) => {
+    (anchor, open) => (event) => {
       if (
         event &&
         event.type === "keydown" &&
