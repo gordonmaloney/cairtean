@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, reset } from "../features/auth/authSlice";
-import Spinner from "../components/Spinner";
 import { Button, FormLabel, TextField, Grid } from "@mui/material";
 
 function Login() {
@@ -53,7 +52,7 @@ function Login() {
   };
 
   if (isLoading) {
-    return <Spinner />;
+    return <>loading...</>;
   }
 
   return (
@@ -63,7 +62,8 @@ function Login() {
           <FaSignInAlt /> Login
         </h1>
       </section>
-      <br /><br />
+      <br />
+      <br />
 
       <Grid container spacing={2}>
         <Grid item xs={12}>

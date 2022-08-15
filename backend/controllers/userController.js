@@ -35,6 +35,8 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email,
       token: generateToken(user._id),
+      last: user.last,
+      streak: user.streak,
     });
   } else {
     res.status(400);
@@ -58,6 +60,8 @@ const loginUser = asyncHandler(async (req, res) => {
       name: user.name,
       email,
       token: generateToken(user._id),
+      last: user.last,
+      streak: user.streak,
     });
   } else {
     res.status(400);
@@ -76,9 +80,10 @@ const getMe = asyncHandler(async (req, res) => {
 //@route PUT /api/users/streak
 //@access private
 const updateStreak = async (req, res) => {
-
-  const user = req.user
+  const user = await User.findOne({email: req.body.email} );
   const { last, streak } = req.body;
+
+  console.log(req.body)
 
   try {
     user.streak = streak;
@@ -89,8 +94,14 @@ const updateStreak = async (req, res) => {
 
   user.save();
 
-  res.json(user);
-};
+  res.status(201).json({
+    _id: req.user.id,
+    name: req.user.name,
+    email: req.user.email,
+    token: generateToken(user._id),
+    last: req.user.last,
+    streak: req.user.streak,
+  });};
 
 //generate JWT
 const generateToken = (id) => {

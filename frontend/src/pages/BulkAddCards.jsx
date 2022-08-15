@@ -22,16 +22,6 @@ const style = {
 function BulkAddCards() {
   const levels = Array.from(new Set(WORDS.map((word) => word.level)));
 
-  const cardsData = [
-    { back: "tunnag", front: "duck", level: "Intro" },
-    { back: "snog", front: "nice", level: "Intro" },
-    { back: "seo", front: "This is", level: "Intro" },
-    { back: "piseag", front: "kitten", level: "Intro" },
-    { back: "muc", front: "pig", level: "Intro" },
-    { back: "Mòrag", front: "Morag", level: "Intro" },
-    { back: "mòr", front: "big", level: "Intro" },
-  ];
-
   const dispatch = useDispatch();
 
   const bulkAddLevel = (level) => {

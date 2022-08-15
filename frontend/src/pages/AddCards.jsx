@@ -8,7 +8,7 @@ function AddCards() {
     front: "",
     back: "",
     date: "",
-    delay: 1,
+    delay: 0,
     reviews: 0,
     tag: "",
   });

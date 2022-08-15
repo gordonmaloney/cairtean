@@ -3,8 +3,10 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCard } from "../features/cards/cardSlice";
 import { updateStreak } from "../features/auth/authSlice";
+import Fab from "@mui/material/Fab";
+import { Grid } from "@mui/material";
 
-function Flashcard({ card, remaining }) {
+function Flashcard({ card, remaining, pushWrongCard, incrementIndex }) {
   const [threeBox, setThreeBox] = useState(false);
 
   const dispatch = useDispatch();
@@ -40,6 +42,8 @@ function Flashcard({ card, remaining }) {
 
       dispatch(updateStreak(updatedUserData));
     }
+
+    incrementIndex()
   };
 
   const { user } = useSelector((state) => state.auth);
@@ -53,6 +57,7 @@ function Flashcard({ card, remaining }) {
     updatedCard.delay = 0;
     updatedCard.reviews++;
 
+    pushWrongCard(updatedCard)
     handleUpdate(updatedCard);
   };
 
@@ -60,11 +65,17 @@ function Flashcard({ card, remaining }) {
     const updatedCard = { ...card };
 
     let newDate = new Date().setDate(
-      new Date().getDate() + (parseInt(card.delay) + 1) * 2
+      new Date().getDate() + parseInt(card?.delay) * 2 + 1
     );
+    let tomorrow = new Date().setDate(new Date().getDate() + 1);
 
-    updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
-    updatedCard.delay = parseInt(card.delay + 1) * 1.5;
+    if (card.tag != "hard") {
+      updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
+      updatedCard.delay = parseInt(card?.delay) * 2 + 1;
+    } else if (card.tag == "hard") {
+      updatedCard.date = new Date(tomorrow).setHours(0, 0, 0, 1);
+      updatedCard.delay = 1;
+    }
     updatedCard.reviews++;
 
     handleUpdate(updatedCard);
@@ -74,95 +85,154 @@ function Flashcard({ card, remaining }) {
     const updatedCard = { ...card };
 
     let newDate = new Date().setDate(
-      new Date().getDate() + (parseInt(card?.delay) + 2) * 2
+      new Date().getDate() + parseInt(card?.delay) * 2 + 3
     );
+    let tomorrow = new Date().setDate(new Date().getDate() + 1);
 
-    updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
-    updatedCard.delay = parseInt(card.delay + 2) * 2;
+    if (card.tag != "hard") {
+      updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
+      updatedCard.delay = parseInt(card?.delay) * 2 + 3;
+    } else if (card.tag == "hard") {
+      updatedCard.date = new Date(tomorrow).setHours(0, 0, 0, 1);
+      updatedCard.delay = 1;
+    }
+
     updatedCard.reviews++;
+    handleUpdate(updatedCard);
+  };
+
+  const markHard = () => {
+    let updatedCard = { ...card };
+    updatedCard.tag = "hard";
+    console.log(updatedCard);
     handleUpdate(updatedCard);
   };
 
   return (
     <>
-      <div className="flashcardContainer">
-        <div className="flashcardHeader">
-          <div style={{ marginRight: "20px" }}>{remaining} remaining</div>
-        </div>
-
-        <div className="flashcardBody">
-          {card.front}
-          {threeBox ? (
-            <>
-              <div
-                style={{
-                  height: "10px",
-                  borderBottom: "1px solid black",
-                  width: "220px",
-                  marginBottom: "10px",
-                }}
-              />
-              {card.back}
-            </>
-          ) : (
-            <div
-              style={{
-                userSelect: "none",
-                pointerEvents: "none",
-                color: "rgba(1,1,1,0)",
-                backgroundColor: "rgba(0,0,0,0)",
-              }}
-            >
-              <div
-                style={{
-                  height: "11px",
-                  width: "220px",
-                  marginBottom: "10px",
-                }}
-              />
-              .
+      <Grid container>
+        <Grid item xs={12} sm={3}></Grid>
+        <Grid item xs={12} sm={6}>
+          <div className="flashcardContainer">
+            <div className="flashcardHeader">
+              <div style={{ marginRight: "20px" }}>
+                {card.front != "" && <>{remaining} remaining</>}
+              </div>
             </div>
-          )}
-        </div>
 
-        <div className="flashcardFooter">
-          <div
-            onClick={() => {
-              setThreeBox(!threeBox);
-            }}
-            className={threeBox ? "threebox hide" : "threebox"}
-          >
-            {!threeBox && "Show Answer"}
+            <div className="flashcardBody">
+              {card.front}
+              {threeBox ? (
+                <>
+                  <div
+                    style={{
+                      height: "10px",
+                      borderBottom: "1px solid black",
+                      width: "220px",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  {card.back}
+                </>
+              ) : (
+                <div
+                  style={{
+                    userSelect: "none",
+                    pointerEvents: "none",
+                    color: "rgba(1,1,1,0)",
+                    backgroundColor: "rgba(0,0,0,0)",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "11px",
+                      width: "220px",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  .
+                </div>
+              )}
+            </div>
+
+            <div className="flashcardFooter">
+              <div
+                onClick={() => {
+                  setThreeBox(!threeBox);
+                }}
+                className={threeBox ? "threebox hide" : "threebox"}
+              >
+                {!threeBox && "Show Answer"}
+              </div>
+              <div
+                onClick={() => {
+                  setThreeBox(!threeBox);
+                  handleWrong(card);
+                }}
+                className={threeBox ? "onebox l2" : "onebox l1"}
+              >
+                {threeBox && "Wrong"}
+              </div>
+              <div
+                onClick={() => {
+                  setThreeBox(!threeBox);
+                  handleCorrect(card);
+                }}
+                className={threeBox ? "onebox c2" : "onebox c1"}
+              >
+                {threeBox && <>Correct</>}
+              </div>
+              <div
+                onClick={() => {
+                  setThreeBox(!threeBox);
+                  handleEasy(card);
+                }}
+                className={threeBox ? "onebox r2" : "onebox r1"}
+              >
+                {threeBox && "Easy"}
+              </div>
+            </div>
+            <br />
+            <br />
+            {card.front != "" && (
+              <>
+                Wrong - retry
+                <br />
+                Correct - {parseInt(card.delay) * 2 + 1} days
+                <br />
+                Easy - {parseInt(card?.delay) * 2 + 3} days
+              </>
+            )}
           </div>
-          <div
-            onClick={() => {
-              setThreeBox(!threeBox);
-              handleWrong(card);
-            }}
-            className={threeBox ? "onebox l2" : "onebox l1"}
-          >
-            {threeBox && "Wrong"}
-          </div>
-          <div
-            onClick={() => {
-              setThreeBox(!threeBox);
-              handleCorrect(card);
-            }}
-            className={threeBox ? "onebox c2" : "onebox c1"}
-          >
-            {threeBox && "Correct"}
-          </div>
-          <div
-            onClick={() => {
-              setThreeBox(!threeBox);
-              handleEasy(card);
-            }}
-            className={threeBox ? "onebox r2" : "onebox r1"}
-          >
-            {threeBox && "Easy"}
-          </div>
-        </div>
-      </div>
+        </Grid>
+        <Grid
+          item
+          sm={1}
+          sx={{ display: { xs: "none", sm: "block", md: "none" } }}
+        ></Grid>
+        <Grid
+          item
+          xs={12}
+          sm={2}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <center>
+            <Fab
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+              onClick={() => markHard(card)}
+            >
+              !!!
+            </Fab>
+          </center>
+        </Grid>
+      </Grid>
     </>
   );
 }

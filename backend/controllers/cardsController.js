@@ -17,8 +17,6 @@ const getCards = asyncHandler(async (req, res) => {
 //@route POST /api/card
 //@access private
 const createCard = asyncHandler(async (req, res) => {
-
-  console.log(req.body)
   
   if (!req.body.front || !req.body.back) {
     res.status(400);
@@ -53,7 +51,6 @@ const createCardsBulk = asyncHandler(async (req, res) => {
 
   const combinedCards = [...req.user.cards, ...req.body];
 
-  console.log(combinedCards)
 
   req.user.cards = combinedCards;
 
@@ -68,11 +65,9 @@ const createCardsBulk = asyncHandler(async (req, res) => {
 const updateCard = asyncHandler(async (req, res) => {
 
 
-  console.log(req.body)
-
-  if (!req.body.date) {
+  if (!req.body) {
     res.status(400);
-    throw new Error("Must have new date to update card");
+    throw new Error("Must have new card data to update card");
   }
 
   const user = req.user;

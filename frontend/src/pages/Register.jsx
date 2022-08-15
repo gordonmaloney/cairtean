@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
 import { register, reset } from "../features/auth/authSlice";
-import Spinner from "../components/Spinner";
 import { Button, TextField, Grid } from "@mui/material";
 
 function Register() {
@@ -60,7 +59,7 @@ function Register() {
   };
 
   if (isLoading) {
-    return <Spinner />;
+    return <>loading...</>;
   }
 
   return (

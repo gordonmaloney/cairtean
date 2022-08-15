@@ -1,12 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getCards, reset, isError, isLoading } from "../features/cards/cardSlice";
+import {
+  getCards,
+  reset,
+  isError,
+  isLoading,
+} from "../features/cards/cardSlice";
 import { updateStreak } from "../features/auth/authSlice";
 
 import Review from "./Review";
 
-export const Home = () => {
+export const Review3 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -44,9 +49,15 @@ export const Home = () => {
     return () => {
       dispatch(reset());
     };
-  }, [user, isError]);
+  }, [isError]);
 
-  if (isLoading || cards.length < 1 || !user) {
+  //set sessionCards
+  const [sessionCards, setSessionCards] = useState([]);
+  cards.length > 0 &&
+    cards.length !== sessionCards.length &&
+    setSessionCards(cards);
+
+  if (sessionCards.length < 1 || !user) {
     return (
       <>
         {" "}
@@ -85,8 +96,7 @@ export const Home = () => {
           : "You haven't studied yet today"}
       </section>
 
-        <Review cards={cards} />
-
+      <Review cards={sessionCards} />
     </>
   );
 };
