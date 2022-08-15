@@ -10,6 +10,7 @@ import {
 import { updateStreak } from "../features/auth/authSlice";
 
 import Review from "./Review";
+import { Animicon } from "../components/AnimIcon";
 
 export const Review3 = () => {
   const navigate = useNavigate();
@@ -60,6 +61,8 @@ export const Review3 = () => {
   if (sessionCards.length < 1 || !user) {
     return (
       <>
+
+
         {" "}
         <section className="heading">
           <h1>Fàilte, {user && user.name}</h1>
