@@ -214,6 +214,17 @@ width: 300px;
   cursor: pointer;
 }
 
+.miniMenuCard {
+  width: 90%;
+  padding: 20px;
+  margin: 20px;
+  background-color: lightcyan;
+  height: 120px;
+  border: 1px solid black;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
 td, th {
   border-bottom: 1px solid black;
   padding: 2px;

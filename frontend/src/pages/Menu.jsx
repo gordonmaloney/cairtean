@@ -83,7 +83,9 @@ export const Menu = () => {
 
         <Grid item xs={12} sm={6}>
           <div onClick={onLogout}>
-            <MenuCard content={<>Log out</>} />
+            <MenuCard content={<><h3>Log out</h3>
+            <br/><br/>
+            All good things must come to an end 🥺<br/><br/>Come back soon!</>} />
           </div>
         </Grid>
       </Grid>

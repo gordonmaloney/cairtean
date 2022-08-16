@@ -14,8 +14,8 @@
 @ content
 
 //- 100% width side bar
-- push kofi
-- about page (inc pun)
+//- push kofi
+//- about page (inc pun)
 - how it works page
 
 
