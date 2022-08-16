@@ -37,7 +37,6 @@ function Review({ cards, noRemaining }) {
     return (
       <section>
         <center>
-          {index}
           <Flashcard
             cardOne={cardsDue[index]}
             remaining={cardsDue.length - index}

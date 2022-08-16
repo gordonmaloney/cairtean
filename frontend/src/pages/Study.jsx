@@ -11,7 +11,7 @@ import { updateStreak } from "../features/auth/authSlice";
 
 import Review from "./Review";
 
-export const Review3 = () => {
+export const Study = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ export const Review3 = () => {
   let today = new Date(new Date().setHours(0, 0, 0, 1));
 
   //reset streak
-  useEffect(() => {
+    console.log('checking user streak...')
     if (user && user.last < new Date(today).setDate(new Date().getDate() - 1)) {
       let updatedUserData = {
         ...user,
@@ -33,7 +33,6 @@ export const Review3 = () => {
 
       dispatch(updateStreak(updatedUserData));
     }
-  }, []);
 
   useEffect(() => {
     if (isError) {
@@ -49,7 +48,7 @@ export const Review3 = () => {
     return () => {
       dispatch(reset());
     };
-  }, [isError]);
+  }, [isError, user, dispatch]);
 
   //set sessionCards
   const [sessionCards, setSessionCards] = useState([]);
@@ -60,20 +59,6 @@ export const Review3 = () => {
   if (sessionCards.length < 1 || !user) {
     return (
       <>
-
-
-        {" "}
-        <section className="heading">
-          <h1>Fàilte, {user && user.name}</h1>
-        </section>
-        <section className="content">
-          "Loading..."
-          <br />
-          <br />
-          "Loading..."
-          <br />
-          "Loading..."
-        </section>
         <Review cards={[{ front: "", date: 1110327986575 }]} noRemaining />
       </>
     );
@@ -81,23 +66,6 @@ export const Review3 = () => {
 
   return (
     <>
-      <section className="heading">
-        <h1>Fàilte, {user && user.name}</h1>
-      </section>
-
-      <section className="content">
-        you have got {cards && cards.length} cards in your deck
-        <br />
-        <br />
-        your current streak is{" "}
-        {user.streak == 1 ? `${user.streak} day` : `${user.streak} day`}
-        <br />
-        {user.last > new Date(today).setDate(new Date().getDate() - 1) &&
-        user.last < new Date(today).setDate(new Date().getDate() + 1)
-          ? "You have studied today - good work!"
-          : "You haven't studied yet today"}
-      </section>
-
       <Review cards={sessionCards} />
     </>
   );

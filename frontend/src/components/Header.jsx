@@ -19,17 +19,16 @@ import { Menu } from "../pages/Menu";
 function Header() {
   const [drawer, setDrawer] = useState(false);
 
-  const toggleDrawer =
-    (anchor, open) => (event) => {
-      if (
-        event &&
-        event.type === "keydown" &&
-        (KeyboardEvent.key === "Tab" || KeyboardEvent.key === "Shift")
-      ) {
-        return;
-      }
-      setDrawer((prev) => !prev);
-    };
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (KeyboardEvent.key === "Tab" || KeyboardEvent.key === "Shift")
+    ) {
+      return;
+    }
+    setDrawer((prev) => !prev);
+  };
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,12 +40,15 @@ function Header() {
     navigate("/login");
   };
 
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user]);
+
   return (
     <header className="header">
-
-      <div onClick={toggleDrawer(true)}>
-        Cairtean
-      </div>
+      <div onClick={toggleDrawer(true)}>Càirtean</div>
 
       {user ? (
         <>
@@ -91,19 +93,19 @@ function Header() {
               <>
                 <br />
                 <br />
-                
-        <>
-          <li>
-            <Link to="/login">
-              <FaSignInAlt /> Login
-            </Link>
-          </li>
-          <li>
-            <Link to="/register">
-              <FaUser /> Register
-            </Link>
-          </li>
-        </>
+
+                <>
+                  <li>
+                    <Link to="/login">
+                      <FaSignInAlt /> Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/register">
+                      <FaUser /> Register
+                    </Link>
+                  </li>
+                </>
               </>
             </Box>
           </SwipeableDrawer>

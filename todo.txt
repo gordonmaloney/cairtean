@@ -9,7 +9,7 @@
 //- delete card
 //- edit card
 //- put edit card / add card / in right-anchored swipable drawer
-
+//- fix streak check function
 
 @ content
 

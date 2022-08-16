@@ -23,7 +23,7 @@ export const Menu = () => {
   return (
     <div>
       <center>
-        <h1>Cairtean</h1>
+        <h1 onClick={() => navigate('../')}>Càirtean</h1>
       </center>
 
       <Grid container sx={{ width: "80%", marginX: "auto", minWidth: "300px" }}>
