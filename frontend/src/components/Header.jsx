@@ -52,6 +52,8 @@ function Header() {
 
       {user ? (
         <>
+                  <Button onClick={() => navigate('../about')}>About</Button>
+
           <Button onClick={toggleDrawer("left", true)}>open menu</Button>
 
           <SwipeableDrawer

@@ -11,6 +11,7 @@ import { Browse } from "./pages/Browse";
 import { AddLanding } from "./pages/AddLanding";
 import { Study } from "./pages/Study";
 import { LoginLanding } from "./pages/LoginLanding";
+import { About } from "./pages/About";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
 
             <Route path="/browse" element={<Browse />} />
             <Route path="/addLanding" element={<AddLanding />} />
+            <Route path="/about" element={<About />} />
 
 
           </Routes>
