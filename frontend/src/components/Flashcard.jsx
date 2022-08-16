@@ -9,6 +9,10 @@ import { Grid } from "@mui/material";
 function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
   const [card, setCard] = useState(cardOne);
 
+  useEffect(() => {
+    setCard(cardOne)
+  }, [cardOne])
+
   const [threeBox, setThreeBox] = useState(false);
 
   const dispatch = useDispatch();

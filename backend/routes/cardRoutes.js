@@ -4,7 +4,8 @@ const {
   getCards,
   createCard,
   updateCard,
-  createCardsBulk
+  createCardsBulk,
+  deleteCard,
 } = require("../controllers/cardsController");
 const {protect} = require('../middleware/authMiddleware')
 
@@ -12,5 +13,7 @@ router.get('/', protect, getCards)
 router.post("/", protect, createCard);
 router.post("/bulk", protect, createCardsBulk);
 router.put("/", protect, updateCard);
+router.delete("/", protect, deleteCard);
+
 
 module.exports = router;

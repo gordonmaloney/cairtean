@@ -49,10 +49,11 @@ const createCardsBulk = asyncHandler(async (req, res) => {
 
   //const cards = JSON.parse(req.body.cards);
 
-  const combinedCards = [...req.user.cards, ...req.body];
+  //const combinedCards = [...req.user.cards, ...req.body];
 
+  req.body.map(card => req.user.cards.push(card) )
 
-  req.user.cards = combinedCards;
+  //req.user.cards = combinedCards;
 
   req.user.save();
 
@@ -92,9 +93,34 @@ const updateCard = asyncHandler(async (req, res) => {
   res.status(200).json(user.cards);
 });
 
+
+//@desc delete card
+//@route DELETE /api/card
+//@access private
+const deleteCard = asyncHandler(async (req, res) => {
+  
+  let card = req.body
+
+
+  if (!req.body) {
+    res.status(400);
+    throw new Error("no card");
+  }
+
+  const user = req.user
+
+  //filter user's cards array to remove
+  user.cards = user.cards.filter(card => card._id !== req.body.id && card.front !== req.body.front && card.back !== req.body.back);
+
+  user.save();
+
+  res.status(200).json(user.cards);
+});
+
 module.exports = {
   getCards,
   createCard,
   updateCard,
   createCardsBulk,
+  deleteCard,
 };

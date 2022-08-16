@@ -100,6 +100,25 @@ export const updateCard = createAsyncThunk(
   }
 );
 
+//delete user card
+export const deleteCard = createAsyncThunk(
+  "cards/deleteCard",
+  async (cardData, thunkAPI) => {    
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await cardService.deleteCard(cardData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const cardSlice = createSlice({
   name: "card",
   initialState,
@@ -156,6 +175,19 @@ export const cardSlice = createSlice({
         state.cards = [...action.payload];
       })
       .addCase(updateCard.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteCard.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteCard.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.cards = [...action.payload];
+      })
+      .addCase(deleteCard.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

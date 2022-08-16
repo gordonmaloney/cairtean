@@ -27,7 +27,6 @@ function Review({ cards, noRemaining }) {
   };
 
 
-
   if (cardsDue.length - index == 0) {
     return (
       <h1>Congrats!</h1>
@@ -38,6 +37,7 @@ function Review({ cards, noRemaining }) {
     return (
       <section>
         <center>
+          {index}
           <Flashcard
             cardOne={cardsDue[index]}
             remaining={cardsDue.length - index}
