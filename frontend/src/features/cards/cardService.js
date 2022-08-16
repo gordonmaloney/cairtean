@@ -43,26 +43,22 @@ const getCards = async (token) => {
   return response.data;
 };
 
-export const updateCard = createAsyncThunk(
-  "cards/updateCard",
-  async (cardData, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await cardService.updateCard(cardData, token);
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
+//update card
+const updateCard = async (cardData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.put(API_URL, cardData, config);
+
+  return response.data;
+};
 
 //delete card
 const deleteCard = async (cardData, token) => {
+
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
