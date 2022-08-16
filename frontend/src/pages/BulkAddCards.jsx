@@ -2,11 +2,17 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createCardsBulk } from "../features/cards/cardSlice";
 import { WORDS } from "./WORDS.js";
-
+import { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import {
+  getCards,
+  reset,
+  isError,
+  isLoading,
+} from "../features/cards/cardSlice";
 
 const style = {
   position: "absolute",
@@ -22,6 +28,7 @@ const style = {
 
 function BulkAddCards() {
   const levels = Array.from(new Set(WORDS.map((word) => word.level)));
+  const [level, setLevel] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,21 +40,45 @@ function BulkAddCards() {
     handleClose();
   };
 
+    //fetch cards
+    const { cards, isLoading, isError, message } = useSelector(
+      (state) => state.cards
+    );
+  
+    useEffect(() => {
+      if (isError) {
+        console.log(message);
+      }
+  
+      dispatch(getCards());
+  
+      return () => {
+        dispatch(reset());
+      };
+    }, []);
+
+    const [duplicate, setDuplicate] = useState(false)
+
+    if (cards.find(card => card.level == level) && duplicate == false) {
+      setDuplicate(true)
+    }
+
+
+
   //modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [level, setLevel] = useState("");
 
   const handleSelectLevel = (settingLevel) => {
+    console.log('duplicate ', duplicate)
+
     handleOpen();
     setLevel(settingLevel.target.textContent);
   };
 
   return (
     <>
-      <Button onClick={() => navigate("../addlanding")}>Back</Button>
-
       <h3>
         To add the vocabulary from a Duolingo level, just select the level
         below:
@@ -74,8 +105,8 @@ function BulkAddCards() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          Add all {WORDS.filter((word) => word.level == level).length} words
-          from {level} to your deck?
+          {!duplicate ? <>Add all {WORDS.filter((word) => word.level == level).length} words
+          from {level} to your deck?</>: <>It looks like the words from {level} are already in your deck - are you sure you want to add them again?</>}
           <br />
           <br />
           <Button variant="contained" onClick={() => bulkAddLevel(level)}>

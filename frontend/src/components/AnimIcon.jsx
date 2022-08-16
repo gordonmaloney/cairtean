@@ -45,7 +45,7 @@ export const Animicon = ({icon, click, enter, autoplay, reSetAutoplay, canvas, f
           //direction={hover ? 1 : -1}
           renderer={canvas ? "canvas" : "svg"}
           animationData={animationData}
-          style={{ width: 150, height: 150, }}
+          style={{ width: 150, height: 150, marginTop: "-60px" }}
           />
 
 

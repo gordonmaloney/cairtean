@@ -5,7 +5,7 @@ export const MenuCard = ({content, link}) => {
     const navigate = useNavigate();
 
     return (
-    <div className="menuCard" onClick={() => navigate(link)}>
+    <div className="menuCard" onClick={() => {link && navigate(link)}}>
 
         {content}
     </div>

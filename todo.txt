@@ -3,34 +3,36 @@
 //- untag as hard/easy
 //- tag as 'known'
 //- close bulk add modal
-- check for duplicate cards
-- check for bulk duplicates
+//- check for duplicate cards
+//- check for bulk duplicates
 //- browse cards
-- delete card
-- edit card
-- put edit card / confirmation modals / add card / in right-anchored swipable drawer
+//- delete card
+//- edit card
+//- put edit card / add card / in right-anchored swipable drawer
 
 
 @ content
 
 //- 100% width side bar
 - push kofi
-- about page
+- about page (inc pun)
 - how it works page
 
 
 @ design
 
 - settle on colour scheme
+- animicons
+
 
 @ misc
 
 - deploy
 - get beta testers
-- improve algorithm
+//- improve algorithm
 
 
 @ future 
 
-- review 
+- review forgotten cards
 - think about some kind of social aspect

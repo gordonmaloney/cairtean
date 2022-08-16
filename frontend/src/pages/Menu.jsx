@@ -26,8 +26,6 @@ export const Menu = () => {
         <h1>Cairtean</h1>
       </center>
 
-
-
       <Grid container sx={{ width: "80%", marginX: "auto", minWidth: "300px" }}>
         <Grid item xs={12} sm={6}>
           <MenuCard
@@ -36,13 +34,17 @@ export const Menu = () => {
                 onMouseEnter={() => setForceLoop(true)}
                 onMouseLeave={() => setForceLoop(false)}
               >
-                <center>
-                  <h3>Study</h3>
-                </center>
-
-                <center>
-                  <Animicon icon="flashcards" canvas forceLoop={forceLoop} />
-                </center>
+                <h3>Study</h3>
+                <br />
+                <br />
+                <Grid container>
+                  <Grid item xs={6}>
+                    Review your cards and maintain your streak!
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Animicon icon="flashcards" canvas forceLoop={forceLoop} />
+                  </Grid>
+                </Grid>
               </div>
             }
             link="../study"
@@ -50,11 +52,33 @@ export const Menu = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <MenuCard content={<>Add cards</>} link="../addLanding" />
+          <MenuCard
+            content={
+              <>
+                <h3>Add cards</h3>
+                <br />
+                <br />
+                Add new cards individually, or add cards in bulk from levels in
+                the Duolingo course.
+              </>
+            }
+            link="../addLanding"
+          />
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <MenuCard content={<>Browse cards</>} link="../browse" />
+          <MenuCard
+            content={
+              <>
+                <h3>Browse cards</h3>
+                <br />
+                <br />
+                Browse your full collection of cards, as well as edit or delete
+                them.
+              </>
+            }
+            link="../browse"
+          />
         </Grid>
 
         <Grid item xs={12} sm={6}>

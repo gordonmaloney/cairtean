@@ -71,13 +71,13 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
     const updatedCard = { ...card };
 
     let newDate = new Date().setDate(
-      new Date().getDate() + parseInt(card?.delay) * 2 + 1
+      new Date().getDate() + (parseInt(card?.delay) * 1.6) + 1
     );
     let tomorrow = new Date().setDate(new Date().getDate() + 1);
 
     if (card.tag != "hard") {
       updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
-      updatedCard.delay = parseInt(card?.delay) * 2 + 1;
+      updatedCard.delay = (parseInt(card?.delay) * 1.6) + 1;
     } else if (card.tag == "hard") {
       updatedCard.date = new Date(tomorrow).setHours(0, 0, 0, 1);
       updatedCard.delay = 1;
@@ -91,13 +91,13 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
     const updatedCard = { ...card };
 
     let newDate = new Date().setDate(
-      new Date().getDate() + parseInt(card?.delay) * 2 + 3
+      new Date().getDate() + (parseInt(card?.delay) * 2.6) + 2
     );
     let tomorrow = new Date().setDate(new Date().getDate() + 1);
 
     if (card.tag != "hard") {
       updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
-      updatedCard.delay = parseInt(card?.delay) * 2 + 3;
+      updatedCard.delay = (parseInt(card?.delay)  * 2.6) + 2;
     } else if (card.tag == "hard") {
       updatedCard.date = new Date(tomorrow).setHours(0, 0, 0, 1);
       updatedCard.delay = 1;
@@ -223,9 +223,9 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
               <>
                 Wrong - retry
                 <br />
-                Correct - {parseInt(card.delay) * 2 + 1} days
+                Correct - {(parseInt(card.delay) * 1.6) + 1} days
                 <br />
-                Easy - {parseInt(card?.delay) * 2 + 3} days
+                Easy - {(parseInt(card?.delay) * 2.6) + 2} days
               </>
             )}
           </div>

@@ -83,7 +83,6 @@ const updateStreak = async (req, res) => {
   const user = await User.findOne({email: req.body.email} );
   const { last, streak } = req.body;
 
-  console.log(req.body)
 
   try {
     user.streak = streak;

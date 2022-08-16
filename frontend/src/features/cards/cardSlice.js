@@ -36,11 +36,9 @@ export const createCard = createAsyncThunk(
 export const createCardsBulk = createAsyncThunk(
   "cards/createbulk",
   async (cardsData, thunkAPI) => {
-
-    console.log('slice ', cardsData)
-    
+        
     cardsData.map(card => {
-      card.date = new Date().getTime();
+      card.date = new Date().setHours(0,0,0,0);
       card.delay = 0;
       card.tag = '';
       card.reviews = 0
@@ -102,11 +100,31 @@ export const updateCard = createAsyncThunk(
 
 //delete user card
 export const deleteCard = createAsyncThunk(
-  "cards/deleteCard",
+  "cards/delete",
   async (cardData, thunkAPI) => {    
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await cardService.deleteCard(cardData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+
+//test
+export const patchCard = createAsyncThunk(
+  "cards/patch",
+  async (cardData, thunkAPI) => {    
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await cardService.patchCard(cardData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -191,7 +209,20 @@ export const cardSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-      });
+      })
+      .addCase(patchCard.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(patchCard.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.cards = [...action.payload];
+      })
+      .addCase(patchCard.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
   },
 });
 

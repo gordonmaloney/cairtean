@@ -94,6 +94,29 @@ const updateCard = asyncHandler(async (req, res) => {
 });
 
 
+//@desc test func
+//@route PATCH /api/card
+//@access private
+const patchCard = asyncHandler(async (req, res) => {
+  let card = req.body
+
+
+  if (!req.body) {
+    res.status(400);
+    throw new Error("no card");
+  }
+
+  const user = req.user
+
+  //filter user's cards array to remove
+  user.cards = user.cards.filter(card => card._id !== req.body.id && card.front !== req.body.front && card.back !== req.body.back);
+
+  user.save();
+
+  res.status(200).json(user.cards);
+});
+
+
 //@desc delete card
 //@route DELETE /api/card
 //@access private
@@ -123,4 +146,5 @@ module.exports = {
   updateCard,
   createCardsBulk,
   deleteCard,
+  patchCard
 };
