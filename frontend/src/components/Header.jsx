@@ -12,7 +12,6 @@ import {
 } from "../features/cards/cardSlice";
 import { updateStreak } from "../features/auth/authSlice";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import { KeyboardEvent } from "react";
 import { Box } from "@mui/system";
 import { Menu } from "../pages/Menu";
 import * as MUIStyle from "../MUIStyles";
