@@ -210,6 +210,39 @@ export const Browse = () => {
                 />
               </Grid>
 
+              <Grid
+                item
+                xs={2}
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <FormLabel sx={MUIStyle.LabelStyle} htmlFor="back">
+                  Tag
+                </FormLabel>
+              </Grid>
+              <Grid item xs={10}>
+                {cardData.tag && (
+                  <>
+                    <Button disabled sx={MUIStyle.EditButton}>
+                      {cardData.tag}
+                    </Button>
+                    <Button
+                      sx={{
+                        ...MUIStyle.ButtonStyleCancel,
+                        padding: "5px",
+                        marginX: 2,
+                        minWidth: 0,
+                        height: "35px",
+                        width: "35px",
+                        borderRadius: "100px",
+                      }}
+                      onClick={() => setCardData({ ...cardData, tag: "" })}
+                    >
+                      x
+                    </Button>
+                  </>
+                )}
+              </Grid>
+
               <Grid item xs={12}>
                 <center>
                   <Button

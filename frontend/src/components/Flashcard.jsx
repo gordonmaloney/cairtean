@@ -6,6 +6,7 @@ import { updateStreak } from "../features/auth/authSlice";
 import Fab from "@mui/material/Fab";
 import { Grid } from "@mui/material";
 import * as MUIStyle from "../MUIStyles";
+import Tooltip from "@mui/material/Tooltip";
 
 function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
   const [card, setCard] = useState(cardOne);
@@ -139,97 +140,99 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
       <Grid container>
         <Grid item xs={12} sm={3}></Grid>
         <Grid item xs={12} sm={6}>
-          <div className="flashcardContainer">
-            <div className="flashcardHeader">
-              <div style={{ marginRight: "20px" }}>
-                {card.front != "" && <>{remaining} remaining</>}
-              </div>
-            </div>
+          <>
 
-            <div className="flashcardBody">
-              {card.front}
-              {threeBox ? (
-                <>
-                  <div
-                    style={{
-                      height: "10px",
-                      borderBottom: "1px solid black",
-                      width: "220px",
-                      marginBottom: "10px",
-                    }}
-                  />
-                  {card.back}
-                </>
-              ) : (
-                <div
-                  style={{
-                    userSelect: "none",
-                    pointerEvents: "none",
-                    color: "rgba(1,1,1,0)",
-                    backgroundColor: "rgba(0,0,0,0)",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "11px",
-                      width: "220px",
-                      marginBottom: "10px",
-                    }}
-                  />
-                  .
+            <div className="flashcardContainer">
+              <div className="flashcardHeader">
+                <div style={{ marginRight: "20px" }}>
+                  {card.front != "" && <>{remaining} remaining</>}
                 </div>
-              )}
+              </div>
+
+              <div className="flashcardBody">
+                {card.front}
+                {threeBox ? (
+                  <>
+                    <div
+                      style={{
+                        height: "10px",
+                        borderBottom: "1px solid black",
+                        width: "220px",
+                        marginBottom: "10px",
+                      }}
+                    />
+                    {card.back}
+                  </>
+                ) : (
+                  <div
+                    style={{
+                      userSelect: "none",
+                      pointerEvents: "none",
+                      color: "rgba(1,1,1,0)",
+                      backgroundColor: "rgba(0,0,0,0)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        height: "11px",
+                        width: "220px",
+                        marginBottom: "10px",
+                      }}
+                    />
+                    .
+                  </div>
+                )}
+              </div>
+
+              <div className="flashcardFooter">
+                <div
+                  onClick={() => {
+                    setThreeBox(!threeBox);
+                  }}
+                  className={threeBox ? "threebox hide" : "threebox"}
+                >
+                  {!threeBox && "Show Answer"}
+                </div>
+                <div
+                  onClick={() => {
+                    setThreeBox(!threeBox);
+                    handleWrong(card);
+                  }}
+                  className={threeBox ? "onebox l2" : "onebox l1"}
+                >
+                  {threeBox && "Wrong"}
+                </div>
+                <div
+                  onClick={() => {
+                    setThreeBox(!threeBox);
+                    handleCorrect(card);
+                  }}
+                  className={threeBox ? "onebox c2" : "onebox c1"}
+                >
+                  {threeBox && <>Correct</>}
+                </div>
+                <div
+                  onClick={() => {
+                    setThreeBox(!threeBox);
+                    handleEasy(card);
+                  }}
+                  className={threeBox ? "onebox r2" : "onebox r1"}
+                >
+                  {threeBox && "Easy"}
+                </div>
+              </div>
             </div>
 
-            <div className="flashcardFooter">
-              <div
-                onClick={() => {
-                  setThreeBox(!threeBox);
-                }}
-                className={threeBox ? "threebox hide" : "threebox"}
-              >
-                {!threeBox && "Show Answer"}
-              </div>
-              <div
-                onClick={() => {
-                  setThreeBox(!threeBox);
-                  handleWrong(card);
-                }}
-                className={threeBox ? "onebox l2" : "onebox l1"}
-              >
-                {threeBox && "Wrong"}
-              </div>
-              <div
-                onClick={() => {
-                  setThreeBox(!threeBox);
-                  handleCorrect(card);
-                }}
-                className={threeBox ? "onebox c2" : "onebox c1"}
-              >
-                {threeBox && <>Correct</>}
-              </div>
-              <div
-                onClick={() => {
-                  setThreeBox(!threeBox);
-                  handleEasy(card);
-                }}
-                className={threeBox ? "onebox r2" : "onebox r1"}
-              >
-                {threeBox && "Easy"}
-              </div>
-            </div>
-            <br />
-            <br />
             {card.front != "" && (
-              <>
+              <p>
                 Wrong - retry
                 <br />
                 Correct - {parseInt(card.delay) * 1.6 + 1} days
                 <br />
                 Easy - {parseInt(card?.delay) * 2.6 + 2} days
-              </>
+              </p>
             )}
-          </div>
+          </>
         </Grid>
         <Grid
           item
@@ -249,39 +252,25 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
           <center>
             {card.tag == "" ? (
               <>
-                <Fab
-                  sx={MUIStyle.FabHard}
-                  style={{
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  }}
-                  onClick={() => markHard(card)}
-                >
-                  ?
-                </Fab>
+                <MUIStyle.CustomTooltip title="Mark card as 'hard'">
+                  <Fab sx={MUIStyle.FabHard} onClick={() => markHard(card)}>
+                    ?
+                  </Fab>
+                </MUIStyle.CustomTooltip>
 
-                <Fab
-                  sx={MUIStyle.FabKnown}
-                  style={{
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  }}
-                  onClick={() => markKnown(card)}
-                >
-                  !
-                </Fab>
+                <MUIStyle.CustomTooltip title="Mark card as 'known'">
+                  <Fab sx={MUIStyle.FabKnown} onClick={() => markKnown(card)}>
+                    !
+                  </Fab>
+                </MUIStyle.CustomTooltip>
               </>
             ) : (
               <>
-                <Fab
-                  style={{
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  }}
-                  onClick={() => unTag(card)}
-                >
-                  untag
-                </Fab>
+                <MUIStyle.CustomTooltip title="Remove tag from card">
+                  <Fab sx={MUIStyle.FabKnown} onClick={() => unTag(card)}>
+                    -
+                  </Fab>
+                </MUIStyle.CustomTooltip>
               </>
             )}
           </center>

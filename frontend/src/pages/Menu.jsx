@@ -23,7 +23,7 @@ export const Menu = () => {
   return (
     <div>
       <center>
-        <h1 onClick={() => navigate('../')}>Càirtean</h1>
+        <h1 onClick={() => navigate("../")}>Càirtean</h1>
       </center>
 
       <Grid container sx={{ width: "80%", marginX: "auto", minWidth: "300px" }}>
@@ -39,7 +39,7 @@ export const Menu = () => {
                 <br />
                 <Grid container>
                   <Grid item xs={6}>
-                    Review your cards and maintain your streak!
+                    <p>Review your cards and maintain your streak!</p>
                   </Grid>
                   <Grid item xs={6}>
                     <Animicon icon="flashcards" canvas forceLoop={forceLoop} />
@@ -57,9 +57,9 @@ export const Menu = () => {
               <>
                 <h3>Add cards</h3>
                 <br />
-                <br />
+                <br /><p>
                 Add new cards individually, or add cards in bulk from levels in
-                the Duolingo course.
+                the Duolingo course.</p>
               </>
             }
             link="../addLanding"
@@ -72,9 +72,9 @@ export const Menu = () => {
               <>
                 <h3>Browse cards</h3>
                 <br />
-                <br />
+                <br /><p>
                 Browse your full collection of cards, as well as edit or delete
-                them.
+                them.</p>
               </>
             }
             link="../browse"
@@ -83,9 +83,22 @@ export const Menu = () => {
 
         <Grid item xs={12} sm={6}>
           <div onClick={onLogout}>
-            <MenuCard content={<><h3>Log out</h3>
-            <br/><br/>
-            All good things must come to an end 🥺<br/><br/>Come back soon!</>} />
+            <MenuCard
+              content={
+                <>
+                  <h3>Log out</h3>
+                  <br />
+                  <br />
+                  <p>
+                    {" "}
+                    All good things must come to an end 🥺
+                    <br />
+                    <br />
+                    Come back soon!
+                  </p>
+                </>
+              }
+            />
           </div>
         </Grid>
       </Grid>
