@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, reset } from "../features/auth/authSlice";
 import { Button, FormLabel, TextField, Grid } from "@mui/material";
+import * as MUIStyle from "../MUIStyles";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -59,7 +60,7 @@ function Login() {
     <>
       <section className="heading">
         <h1>
-          <FaSignInAlt /> Login
+          Log in
         </h1>
       </section>
       <br />
@@ -68,6 +69,7 @@ function Login() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
+          sx={MUIStyle.TextFieldStyle}
             type="email"
             className="form-control"
             id="email"
@@ -79,6 +81,8 @@ function Login() {
         </Grid>
         <Grid item xs={12}>
           <TextField
+                    sx={MUIStyle.TextFieldStyle}
+
             type="password"
             className="form-control"
             id="password"
@@ -89,9 +93,11 @@ function Login() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" onClick={onSubmit}>
+          <center>
+          <Button sx={MUIStyle.ButtonStyle} variant="contained" onClick={onSubmit}>
             Submit
           </Button>
+          </center>
         </Grid>
       </Grid>
     </>

@@ -24,7 +24,6 @@ export const Study = () => {
   let today = new Date(new Date().setHours(0, 0, 0, 1));
 
   //reset streak
-    console.log('checking user streak...')
     if (user && user.last < new Date(today).setDate(new Date().getDate() - 1)) {
       let updatedUserData = {
         ...user,
@@ -56,13 +55,15 @@ export const Study = () => {
     cards.length !== sessionCards.length &&
     setSessionCards(cards);
 
-  if (sessionCards.length < 1 || !user) {
+
+  if (sessionCards.length < 1) {
     return (
-      <>
+      <>Loading...
         <Review cards={[{ front: "", date: 1110327986575 }]} noRemaining />
       </>
     );
   }
+
 
   return (
     <>

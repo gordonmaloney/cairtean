@@ -32,6 +32,8 @@ function Review({ cards, noRemaining }) {
       <h1>Congrats!</h1>
     )
   }
+
+  console.log(cardsDue[1])
   
   if (cardsDue.length - index > 0) {
     return (

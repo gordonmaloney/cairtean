@@ -15,6 +15,7 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { Box } from "@mui/system";
 import { TextField, Button, Grid, FormLabel } from "@mui/material";
 import Modal from "@mui/material/Modal";
+import * as MUIStyle from "../MUIStyles";
 
 const style = {
   position: "absolute",
@@ -114,7 +115,14 @@ export const Browse = () => {
                     <td>{new Date(card.date).toLocaleDateString("en-UK")}</td>
                     <td>{card.tag ? card.tag : "-"}</td>
                     <td style={{ border: 0 }}>
-                      <div onClick={() => onEdit(card)}>edit</div>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        sx={MUIStyle.EditButton}
+                        onClick={() => onEdit(card)}
+                      >
+                        edit
+                      </Button>
                     </td>
                   </tr>
                 );
@@ -144,6 +152,8 @@ export const Browse = () => {
             }}
           >
             <Button
+              sx={{ ...MUIStyle.ButtonStyleCancel, margin: 1 }}
+              size="small"
               onClick={() => {
                 toggleDrawer(false);
                 setDrawer(false);
@@ -159,11 +169,13 @@ export const Browse = () => {
                 xs={2}
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <FormLabel htmlFor="front">Front</FormLabel>
+                <FormLabel sx={MUIStyle.LabelStyle} htmlFor="front">
+                  Front
+                </FormLabel>
               </Grid>
               <Grid item xs={10}>
                 <TextField
-                  sx={{ width: "100%" }}
+                  sx={MUIStyle.TextFieldStyle}
                   type="text"
                   name="front"
                   id="front"
@@ -180,11 +192,13 @@ export const Browse = () => {
                 xs={2}
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <FormLabel htmlFor="back">Back</FormLabel>
+                <FormLabel sx={MUIStyle.LabelStyle} htmlFor="back">
+                  Back
+                </FormLabel>
               </Grid>
               <Grid item xs={10}>
                 <TextField
-                  sx={{ width: "100%" }}
+                  sx={MUIStyle.TextFieldStyle}
                   type="text"
                   name="back"
                   id="back"
@@ -199,6 +213,7 @@ export const Browse = () => {
               <Grid item xs={12}>
                 <center>
                   <Button
+                    sx={MUIStyle.ButtonStyle}
                     variant="contained"
                     onClick={() => handleUpdate()}
                     disabled={!cardData.front || !cardData.back}
@@ -211,6 +226,7 @@ export const Browse = () => {
               <Grid item xs={12}>
                 <center>
                   <Button
+                    sx={MUIStyle.ButtonStyleCancel}
                     variant="contained"
                     onClick={() => {
                       setOpen(true);
@@ -232,18 +248,36 @@ export const Browse = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          Are you sure you want to remove this card? This cannot be undone.
+        <Box sx={{ ...MUIStyle.ModalStyle, backgroundColor: "#fffffe" }}>
+          <h3>Are you sure?</h3>
           <br />
           <br />
-          <Button variant="contained" onClick={() => {handleDelete(); setOpen(false)}}>
-            Confirm
-          </Button>
+          <p>
+            Are you sure you want to remove this card? This cannot be undone.
+          </p>
           <br />
           <br />
-          <Button variant="contained" onClick={() => handleClose()}>
-            Cancel
-          </Button>
+          <center>
+            <Button
+              variant="contained"
+              sx={MUIStyle.ButtonStyle}
+              onClick={() => {
+                handleDelete();
+                setOpen(false);
+              }}
+            >
+              Confirm
+            </Button>
+            <br />
+            <br />
+            <Button
+              sx={MUIStyle.ButtonStyleCancel}
+              variant="contained"
+              onClick={() => handleClose()}
+            >
+              Cancel
+            </Button>
+          </center>
         </Box>
       </Modal>
     </div>

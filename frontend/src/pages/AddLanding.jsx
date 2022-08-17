@@ -9,6 +9,7 @@ import { Box } from "@mui/system";
 import { Button } from "@mui/material";
 import AddCards from "./AddCards";
 import BulkAddCards from "./BulkAddCards";
+import * as MUIStyle from "../MUIStyles";
 
 export const AddLanding = () => {
   const [drawer, setDrawer] = useState(false);
@@ -32,7 +33,7 @@ export const AddLanding = () => {
               setField("add");
             }}
           >
-            <MenuCard content={<>Add individual cards</>} />
+            <MenuCard mini content={<h3>Add individual cards</h3>} />
           </div>
         </Grid>
 
@@ -43,7 +44,7 @@ export const AddLanding = () => {
               setField("bulk");
             }}
           >
-            <MenuCard content={<>Bulk add cards from Duolingo levels</>} />
+            <MenuCard mini content={<h3>Bulk add cards from Duolingo levels</h3>} />
           </div>
         </Grid>
       </Grid>
@@ -69,6 +70,8 @@ export const AddLanding = () => {
             }}
           >
             <Button
+            sx={{...MUIStyle.ButtonStyleCancel, margin: 1}}
+            size="small"
               onClick={() => {
                 toggleDrawer(false);
                 setDrawer(false);

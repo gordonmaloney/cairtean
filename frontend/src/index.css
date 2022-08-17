@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap');
 
 * {
   margin: 0;
@@ -9,17 +10,25 @@
 body {
   font-family: 'Josefin Sans', sans-serif;
   height: 100vh;
-  background-color: #eff0f3;
+  background-color: #fffffe;
 }
 
 a {
   text-decoration: none;
-  color: #000;
+  color: #181818;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: #181818
+
 }
 
 p {
-  line-height: 1.7;
+  font-family: 'Roboto';
+  line-height: 1.4;
+  color: #2e2e2e
 }
+
 
 ul {
   list-style: none;
@@ -76,7 +85,7 @@ li {
 .threebox {
   border-top: 1px solid black;
   width: 298px;
-  background-color: orange;
+  background-color: #4fc4cf;
   height: 49px;
   border-radius: 0 0 34px 34px !important;
   position: absolute;
@@ -105,14 +114,13 @@ li {
 .onebox {
   border-top: 1px solid black;
   text-align: center;
-  width: 100px;
   height: 49px;
   display: inline-flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   transition: ease 1s;
-
+width: 100px;
   cursor: pointer !important;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -126,7 +134,7 @@ li {
 }
 
 .r1 {
-  border-radius: 0 0 35px 0;
+  border-radius: 0 0 36px 0;
   transition: ease 1s;
 }
 
@@ -140,28 +148,36 @@ li {
 .l2 {
   border-radius: 0 15px 0 34px;
   transition: ease 1s;
-  background-color: red;
+  background-color: #994ff3;
+  width: 100px;
+  border-left: 1px solid black;
+
 }
 
 .r2 {
   border-radius: 15px 0 34px 0;
   transition: ease 1s;
-  background-color: blue;
+  background-color: #fbdd74;
+  width: 99px;
+  border-right: 1px solid black;
+
 }
 
 .c2 {
   border-radius: 15px 15px 0 0;
   transition: ease 1s;
-  background-color: green;
+  background-color: #4fc4cf;
+  width: 100px;
+
 }
 
 
 .flashcardContainer {
-  background-color: aliceblue;
+  background-color: #fffffe;
   width: 300px;
   height: 200px;
   border-radius: 35px;
-  border: 1px solid black;
+  border: 1px solid #181818;
   margin: 20px;
 }
 
@@ -171,7 +187,9 @@ li {
   display: flex;
   align-items: center;
   justify-content: end;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #181818;
+  background-color: #4fc4cf;
+border-radius: 35px 35px 0 0;
 }
 
 .flashcardBody {
@@ -181,7 +199,6 @@ li {
   display: flex;
   flex-direction: column;
   width: 280px;
-  background-color: white;
   margin: 10px;
 }
 
@@ -207,9 +224,9 @@ width: 300px;
   width: 90%;
   padding: 20px;
   margin: 20px;
-  background-color: lightcyan;
+  background-color: #4fc4cf;
   height: 170px;
-  border: 1px solid black;
+  border: 1px solid #181818;
   border-radius: 20px;
   cursor: pointer;
 }
@@ -218,7 +235,7 @@ width: 300px;
   width: 90%;
   padding: 20px;
   margin: 20px;
-  background-color: lightcyan;
+  background-color: #4fc4cf;
   height: 120px;
   border: 1px solid black;
   border-radius: 20px;
@@ -226,7 +243,7 @@ width: 300px;
 }
 
 td, th {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #181818;
   padding: 2px;
   padding-top: 5px;
   padding-bottom: 5px;

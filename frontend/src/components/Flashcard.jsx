@@ -5,13 +5,14 @@ import { updateCard } from "../features/cards/cardSlice";
 import { updateStreak } from "../features/auth/authSlice";
 import Fab from "@mui/material/Fab";
 import { Grid } from "@mui/material";
+import * as MUIStyle from "../MUIStyles";
 
 function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
   const [card, setCard] = useState(cardOne);
 
   useEffect(() => {
-    setCard(cardOne)
-  }, [cardOne])
+    setCard(cardOne);
+  }, [cardOne]);
 
   const [threeBox, setThreeBox] = useState(false);
 
@@ -71,13 +72,13 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
     const updatedCard = { ...card };
 
     let newDate = new Date().setDate(
-      new Date().getDate() + (parseInt(card?.delay) * 1.6) + 1
+      new Date().getDate() + parseInt(card?.delay) * 1.6 + 1
     );
     let tomorrow = new Date().setDate(new Date().getDate() + 1);
 
     if (card.tag != "hard") {
       updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
-      updatedCard.delay = (parseInt(card?.delay) * 1.6) + 1;
+      updatedCard.delay = parseInt(card?.delay) * 1.6 + 1;
     } else if (card.tag == "hard") {
       updatedCard.date = new Date(tomorrow).setHours(0, 0, 0, 1);
       updatedCard.delay = 1;
@@ -91,13 +92,13 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
     const updatedCard = { ...card };
 
     let newDate = new Date().setDate(
-      new Date().getDate() + (parseInt(card?.delay) * 2.6) + 2
+      new Date().getDate() + parseInt(card?.delay) * 2.6 + 2
     );
     let tomorrow = new Date().setDate(new Date().getDate() + 1);
 
     if (card.tag != "hard") {
       updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
-      updatedCard.delay = (parseInt(card?.delay)  * 2.6) + 2;
+      updatedCard.delay = parseInt(card?.delay) * 2.6 + 2;
     } else if (card.tag == "hard") {
       updatedCard.date = new Date(tomorrow).setHours(0, 0, 0, 1);
       updatedCard.delay = 1;
@@ -223,9 +224,9 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
               <>
                 Wrong - retry
                 <br />
-                Correct - {(parseInt(card.delay) * 1.6) + 1} days
+                Correct - {parseInt(card.delay) * 1.6 + 1} days
                 <br />
-                Easy - {(parseInt(card?.delay) * 2.6) + 2} days
+                Easy - {parseInt(card?.delay) * 2.6 + 2} days
               </>
             )}
           </div>
@@ -249,23 +250,25 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
             {card.tag == "" ? (
               <>
                 <Fab
+                  sx={MUIStyle.FabHard}
                   style={{
                     marginLeft: "auto",
                     marginRight: "auto",
                   }}
                   onClick={() => markHard(card)}
                 >
-                  hard
+                  ?
                 </Fab>
 
                 <Fab
+                  sx={MUIStyle.FabKnown}
                   style={{
                     marginLeft: "auto",
                     marginRight: "auto",
                   }}
                   onClick={() => markKnown(card)}
                 >
-                  known
+                  !
                 </Fab>
               </>
             ) : (

@@ -13,24 +13,15 @@ import {
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import { red } from "@mui/material/colors";
+import * as MUIStyle from '../MUIStyles'
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 function AddCards() {
   const [cardData, setCardData] = useState({
     front: "",
     back: "",
-    date: new Date().setHours(0,0,0,0),
+    date: new Date().setHours(0, 0, 0, 0),
     delay: 0,
     reviews: 0,
     tag: "",
@@ -69,11 +60,12 @@ function AddCards() {
       console.log("need to enter a front and back field");
     }
 
-    let duplicate = cards.find(card => card.front == cardData.front) && cards.find(card => card.back == cardData.back)
-
+    let duplicate =
+      cards.find((card) => card.front == cardData.front) &&
+      cards.find((card) => card.back == cardData.back);
 
     if (duplicate) {
-      setOpen(true)
+      setOpen(true);
     }
     //check for duplicate
     //import all cards, map front, then back
@@ -83,7 +75,7 @@ function AddCards() {
       setCardData({
         front: "",
         back: "",
-        date: new Date().setHours(0,0,0,0),
+        date: new Date().setHours(0, 0, 0, 0),
         delay: 1,
         reviews: 0,
         tag: "",
@@ -96,13 +88,13 @@ function AddCards() {
     setCardData({
       front: "",
       back: "",
-      date: new Date().setHours(0,0,0,0),
+      date: new Date().setHours(0, 0, 0, 0),
       delay: 1,
       reviews: 0,
       tag: "",
     });
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <section>
@@ -110,11 +102,13 @@ function AddCards() {
       <br />
       <Grid container spacing={2}>
         <Grid item xs={2} style={{ display: "flex", alignItems: "center" }}>
-          <FormLabel htmlFor="front">Front</FormLabel>
+          <FormLabel sx={MUIStyle.LabelStyle} htmlFor="front">
+            Front
+          </FormLabel>
         </Grid>
         <Grid item xs={10}>
           <TextField
-            sx={{ width: "100%" }}
+            sx={MUIStyle.TextFieldStyle}
             type="text"
             name="front"
             id="front"
@@ -127,11 +121,11 @@ function AddCards() {
         </Grid>
 
         <Grid item xs={2} style={{ display: "flex", alignItems: "center" }}>
-          <FormLabel htmlFor="back">Back</FormLabel>
+          <FormLabel sx={MUIStyle.LabelStyle} htmlFor="back">Back</FormLabel>
         </Grid>
         <Grid item xs={10}>
           <TextField
-            sx={{ width: "100%" }}
+            sx={MUIStyle.TextFieldStyle}
             type="text"
             name="back"
             id="back"
@@ -142,13 +136,16 @@ function AddCards() {
         </Grid>
 
         <Grid item xs={12}>
-          <Button
-            variant="contained"
-            onClick={onSubmit}
-            disabled={!cardData.front || !cardData.back}
-          >
-            Create New Card
-          </Button>
+          <center>
+            <Button
+              sx={MUIStyle.ButtonStyle}
+              variant="contained"
+              onClick={onSubmit}
+              disabled={!cardData.front || !cardData.back}
+            >
+              Create New Card
+            </Button>
+          </center>
         </Grid>
       </Grid>
       <Modal
@@ -157,19 +154,30 @@ function AddCards() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          It looks like you already have a card with these fields. Are you sure
-          you want to add this to your deck?
+        <Box sx={MUIStyle.ModalStyle}>
+          <h3>Are you sure?</h3>
+          <br/><br/>
+          <p>
+            {" "}
+            It looks like you already have a card with these fields. Are you
+            sure you want to add this to your deck?
+          </p>
           <br />
           <br />
-          <Button variant="contained" onClick={confirmAdd}>
-            Confirm
-          </Button>
-          <br />
-          <br />
-          <Button variant="contained" onClick={handleClose}>
-            Cancel
-          </Button>
+          <center>
+            <Button variant="contained" onClick={confirmAdd} sx={MUIStyle.ButtonStyle}>
+              Confirm
+            </Button>
+            <br />
+            <br />
+            <Button
+              variant="contained"
+              onClick={handleClose}
+              sx={MUIStyle.ButtonStyleCancel}
+            >
+              Cancel
+            </Button>
+          </center>
         </Box>
       </Modal>
     </section>

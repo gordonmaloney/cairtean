@@ -11,6 +11,7 @@ import AddCards from "./AddCards";
 import BulkAddCards from "./BulkAddCards";
 import Register from "./Register";
 import Login from "./Login";
+import * as MUIStyle from '../MUIStyles'
 
 export const LoginLanding = () => {
   const [drawer, setDrawer] = useState(false);
@@ -127,6 +128,8 @@ export const LoginLanding = () => {
                 toggleDrawer(false);
                 setDrawer(false);
               }}
+              size="small"
+              sx={{...MUIStyle.ButtonStyleCancel, margin: 1}}
             >
               Back
             </Button>

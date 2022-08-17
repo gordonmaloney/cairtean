@@ -15,6 +15,7 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { KeyboardEvent } from "react";
 import { Box } from "@mui/system";
 import { Menu } from "../pages/Menu";
+import * as MUIStyle from "../MUIStyles";
 
 function Header() {
   const [drawer, setDrawer] = useState(false);
@@ -48,14 +49,18 @@ function Header() {
 
   return (
     <header className="header">
-      <div onClick={toggleDrawer(true)}>Càirtean</div>
+
 
       {user ? (
         <>
-                  <Button onClick={() => navigate('../about')}>About</Button>
+          <Button 
+          sx={MUIStyle.ButtonStyle}
+          variant="contained"
+          onClick={toggleDrawer("left", true)}>open menu</Button>
 
-          <Button onClick={toggleDrawer("left", true)}>open menu</Button>
-
+<div onClick={toggleDrawer(true)}>
+        <h1>Càirtean</h1>
+        </div>
           <SwipeableDrawer
             anchor="left"
             open={drawer}

@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FaUser } from "react-icons/fa";
 import { register, reset } from "../features/auth/authSlice";
 import { Button, TextField, Grid } from "@mui/material";
+import * as MUIStyle from "../MUIStyles";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -65,9 +65,7 @@ function Register() {
   return (
     <>
       <section className="heading">
-        <h1>
-          <FaUser /> Register
-        </h1>
+        <h1>Register</h1>
         <p>Please create an account</p>
       </section>
       <br />
@@ -76,6 +74,7 @@ function Register() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
+            sx={MUIStyle.TextFieldStyle}
             type="text"
             className="form-control"
             id="name"
@@ -87,6 +86,7 @@ function Register() {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            sx={MUIStyle.TextFieldStyle}
             type="email"
             className="form-control"
             id="email"
@@ -98,6 +98,7 @@ function Register() {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            sx={MUIStyle.TextFieldStyle}
             type="password"
             className="form-control"
             id="password"
@@ -109,6 +110,7 @@ function Register() {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            sx={MUIStyle.TextFieldStyle}
             type="password"
             className="form-control"
             id="password2"
@@ -119,9 +121,14 @@ function Register() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button onClick={onSubmit} variant="contained">
+          <center>
+          <Button
+            sx={MUIStyle.ButtonStyle}
+            onClick={onSubmit}
+            variant="contained"
+          >
             Submit
-          </Button>
+          </Button></center>
         </Grid>
       </Grid>
     </>
