@@ -19,7 +19,9 @@ app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/cards", require("./routes/cardRoutes"));
 
 
-
+app.get('/', (req, res) => {
+    res.send('API running')
+})
 
 app.use(errorHandler);
 
