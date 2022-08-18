@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "/api/cards/";
-//const API_URL = "https://cairtean.herokuapp.com/api/cards/"
+//const API_URL = "/api/cards/";
+const API_URL = "https://cairtean.herokuapp.com/api/cards/"
 
 //create cards
 const createCard = async (cardData, token) => {

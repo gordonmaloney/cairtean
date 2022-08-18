@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "/api/users/";
-//const API_URL = "https://cairtean.herokuapp.com/api/users/"
+//const API_URL = "/api/users/";
+const API_URL = "https://cairtean.herokuapp.com/api/users/"
 
 // register user
 const register = async (userData) => {
