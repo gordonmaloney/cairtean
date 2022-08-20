@@ -73,16 +73,35 @@ const loginUser = asyncHandler(async (req, res) => {
 //@route GET /api/users/me
 //@access private
 const getMe = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
+  console.log("getting me....");
+
+  console.log({
+    user: {
+      _id: req.user.id,
+      name: req.user.name,
+      email: req.user.email,
+      token: generateToken(req.user._id),
+      last: req.user.last,
+      streak: req.user.streak,
+    },
+  });
+
+  res.status(201).json({
+    _id: req.user.id,
+    name: req.user.name,
+    email: req.user.email,
+    token: generateToken(req.user._id),
+    last: req.user.last,
+    streak: req.user.streak,
+  });
 });
 
 //@desc update user streak
 //@route PUT /api/users/streak
 //@access private
 const updateStreak = async (req, res) => {
-  const user = await User.findOne({email: req.body.email} );
+  const user = await User.findOne({ email: req.body.email });
   const { last, streak } = req.body;
-
 
   try {
     user.streak = streak;
@@ -97,10 +116,11 @@ const updateStreak = async (req, res) => {
     _id: req.user.id,
     name: req.user.name,
     email: req.user.email,
-    token: generateToken(user._id),
+    token: generateToken(req.user._id),
     last: req.user.last,
     streak: req.user.streak,
-  });};
+  });
+};
 
 //generate JWT
 const generateToken = (id) => {
