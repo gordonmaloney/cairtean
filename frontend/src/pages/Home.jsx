@@ -79,16 +79,28 @@ export const Home = () => {
         <p>
           <br />
           You have got {cards && cards.length} cards in your deck
-          <br />
-          <br />
-          Your current streak is{" "}
-          {user.streak == 1 ? `${user.streak} day` : `${user.streak} days`}
-          <br />
-          <br />
-          {user.last > new Date(today).setDate(new Date().getDate() - 1) &&
-          user.last < new Date(today).setDate(new Date().getDate() + 1)
-            ? "You have studied today - good work!"
-            : "You haven't studied yet today"}
+          {cards.length == 0 ? (
+            <>
+              <br />
+              <br />
+              To start studying, open the menu and add some cards to your deck. You
+              can either add them individually, or in bulk to help study with
+              Duolingo.
+            </>
+          ) : (
+            <>
+              <br />
+              <br />
+              Your current streak is{" "}
+              {user.streak == 1 ? `${user.streak} day` : `${user.streak} days`}
+              <br />
+              <br />
+              {user.last > new Date(today).setDate(new Date().getDate() - 1) &&
+              user.last < new Date(today).setDate(new Date().getDate() + 1)
+                ? "You have studied today - good work!"
+                : "You haven't studied yet today"}
+            </>
+          )}
         </p>
       </section>
     </>
