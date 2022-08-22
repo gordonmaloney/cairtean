@@ -44,7 +44,10 @@ export const AddLanding = () => {
               setField("bulk");
             }}
           >
-            <MenuCard mini content={<h3>Bulk add cards from Duolingo levels</h3>} />
+            <MenuCard
+              mini
+              content={<h3>Bulk add cards from Duolingo levels</h3>}
+            />
           </div>
         </Grid>
       </Grid>
@@ -70,8 +73,8 @@ export const AddLanding = () => {
             }}
           >
             <Button
-            sx={{...MUIStyle.ButtonStyleCancel, margin: 1}}
-            size="small"
+              sx={{ ...MUIStyle.ButtonStyleCancel, margin: 1 }}
+              size="small"
               onClick={() => {
                 toggleDrawer(false);
                 setDrawer(false);

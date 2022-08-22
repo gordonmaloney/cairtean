@@ -7,6 +7,7 @@ import Fab from "@mui/material/Fab";
 import { Grid } from "@mui/material";
 import * as MUIStyle from "../MUIStyles";
 import Tooltip from "@mui/material/Tooltip";
+import { FlashcardMicroDrawer } from "./FlashcardMicroDrawer";
 
 function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
   const [card, setCard] = useState(cardOne);
@@ -241,6 +242,8 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
             )}
           </>
         </Grid>
+
+        {/*
         <Grid
           item
           sm={1}
@@ -282,7 +285,10 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
             )}
           </center>
         </Grid>
+            */}
       </Grid>
+
+      <FlashcardMicroDrawer card={card} markKnown={markKnown} markHard={markHard} unTag={unTag}/>
     </>
   );
 }

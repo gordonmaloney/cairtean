@@ -31,23 +31,6 @@ export const Home = () => {
     user && dispatch(getMe());
   }, [navigate]);
 
-  //reset streak
-  useEffect(() => {
-    console.log("checking streak...", new Date(user.last));
-    if (
-      user &&
-      user.streak != 0 &&
-      user.last < new Date(today).setDate(new Date().getDate() - 1)
-    ) {
-      console.log("conditional met - resetting streak");
-      let updatedUserData = {
-        ...user,
-        streak: 0,
-      };
-
-      dispatch(updateStreak(updatedUserData));
-    }
-  }, [navigate]);
 
   useEffect(() => {
     if (isError) {
@@ -65,6 +48,24 @@ export const Home = () => {
     };
   }, [navigate, isError]);
 
+
+   //reset streak
+   useEffect(() => {
+    if (
+      user &&
+      user.streak != 0 &&
+      user?.last < new Date(today).setDate(new Date().getDate() - 1)
+    ) {
+      console.log("conditional met - resetting streak");
+      let updatedUserData = {
+        ...user,
+        streak: 0,
+      };
+
+      dispatch(updateStreak(updatedUserData));
+    }
+  }, [navigate]);
+  
   if (isLoading || !user) {
     return <>Loading...</>;
   }

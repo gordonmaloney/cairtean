@@ -34,7 +34,7 @@ export const LoginLanding = () => {
         Càirtean is a flashcard app for learning Scottish Gaelic.
         <br />
         <br />
-        It is designed to aid students learning with the Duolingo course, but
+        It is designed to aid students' learning with the Duolingo course, but
         also allows you to add your own words. It uses a{" "}
         <a
           target="_blank"
@@ -42,7 +42,7 @@ export const LoginLanding = () => {
         >
           <u>scientifically proven</u>
         </a>{" "}
-        'spaced-repition' algorithm to maximise your retention, and make sure
+        'spaced-repetition' algorithm to maximise your retention, and make sure
         you remember what you learn.
         <br />
         <br />

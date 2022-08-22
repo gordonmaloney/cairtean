@@ -83,6 +83,7 @@ function BulkAddCards() {
                   handleSelectLevel(level);
                 }}
                 key={index}
+                //disabled={cards.find((card) => card.level == level) != undefined}
               >
                 {level}
               </Button>

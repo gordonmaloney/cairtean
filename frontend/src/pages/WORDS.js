@@ -579,7 +579,7 @@ export const WORDS = [
 {back: "cnatan", level: "Feelings 2", front: "flu"},
 {back: "orra", level: "Feelings 2", front: "on them"},
 {back: "oirbh", level: "Feelings 2", front: "on you (plural)"},
-{back: "an dèideadh", level: "an dèideadh", front: "toothache"},
+{back: "an dèideadh", level: "Feelings 2", front: "toothache"},
 {back: "mìcheal", level: "Feelings 2", front: "Michael"},
 {back: "gaol", level: "Feelings 2", front: "love"},
 {back: "gràin", level: "Feelings 2", front: "hate"},
