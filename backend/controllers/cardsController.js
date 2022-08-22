@@ -87,6 +87,7 @@ const updateCard = asyncHandler(async (req, res) => {
   existingCard.front = req.body.front;
   existingCard.back = req.body.back;
   existingCard.tag = req.body.tag
+  existingCard.lastForgotten = req.body.lastForgotten
 
   user.save();
 
