@@ -2,6 +2,7 @@ import { useState } from "react";
 import Flashcard from "../components/Flashcard";
 import { Button } from "@mui/material";
 import * as MUIStyle from "../MUIStyles";
+import { SocialShare } from "../components/SocialShare";
 
 import AboutModal from "./AboutModal";
 
@@ -55,32 +56,33 @@ function Review({ cards, forgottenCards }) {
     setIndex((prev) => prev + 1);
   };
 
-  console.log(cardsDue)
-
   if (cardsDue.length > 0 && cardsDue.length - index == 0) {
     return (
       <>
         <h3>Congrats - you've studied all your cards for today!</h3>
-
-<br/><br/>
-        <p>
-          You got {forgottenCards.length} wrong. <br />
-          <br />
-          Would you like to review them again?
-          <br />
-          <br />
-          <Button
-            sx={MUIStyle.ButtonStyle}
-            variant="contained"
-            onClick={() => {
-              setIndex(0);
-              setCardsDue(forgottenCards);
-            }}
-          >
-            Review forgotten cards
-          </Button>
-          
-        </p>
+        <br />
+        <br />
+        <SocialShare />
+        <br />
+        {forgottenCards.length > 0 && (
+          <p>
+            You got {forgottenCards.length} wrong today. <br />
+            <br />
+            Would you like to review them again?
+            <br />
+            <br />
+            <Button
+              sx={MUIStyle.ButtonStyle}
+              variant="contained"
+              onClick={() => {
+                setIndex(0);
+                setCardsDue(forgottenCards);
+              }}
+            >
+              Review forgotten cards
+            </Button>
+          </p>
+        )}
       </>
     );
   }

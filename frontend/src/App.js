@@ -13,12 +13,15 @@ import { Study } from "./pages/Study";
 import { LoginLanding } from "./pages/LoginLanding";
 import { About } from "./pages/About";
 import { NewUser } from "./pages/NewUser";
+import { Footer } from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <div style={{  display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh'}}>
       <Router>
-        <div className="container">
+        <div className="container" style={{flex: 1}}>
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -40,8 +43,9 @@ function App() {
           </Routes>
         </div>
       </Router>
+      <Footer />
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

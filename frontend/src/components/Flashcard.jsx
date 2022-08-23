@@ -26,6 +26,23 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
     //check streak
     let today = new Date(new Date().setHours(0, 0, 0, 1));
 
+    console.log(user.last);
+    console.log(
+      user.last > new Date(today).setDate(new Date().getDate() - 1) &&
+        user.last < new Date(today).setDate(new Date().getDate())
+    );
+
+    console.log(user.last > new Date(today).setDate(new Date().getDate() - 1));
+
+    console.log(user.last < new Date(today).setDate(new Date().getDate()));
+
+    console.log(
+      user.last,
+      new Date(today).setDate(new Date().getDate() - 1),
+      user.last,
+      new Date(today).setDate(new Date().getDate())
+    );
+
     if (
       user.last > new Date(today).setDate(new Date().getDate() - 1) &&
       user.last < new Date(today).setDate(new Date().getDate())
@@ -35,12 +52,12 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
       let updatedUserData = {
         ...user,
         streak: parseInt(user.streak) + 1,
-        last: new Date().setHours(0, 0, 1).valueOf(),
+        last: new Date().valueOf(),
       };
-
       dispatch(updateStreak(updatedUserData));
     } else if (user.last < new Date(today).setDate(new Date().getDate() - 1)) {
       //user last before yday - set streak to 1
+      console.log("resetting streak...");
       let updatedUserData = {
         ...user,
         streak: 1,
@@ -50,10 +67,11 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
       dispatch(updateStreak(updatedUserData));
     } else {
       //
+      console.log("maintaining streak...");
       let updatedUserData = {
         ...user,
         streak: parseInt(user.streak),
-        last: new Date().setHours(0, 0, 0, 1).valueOf(),
+        last: new Date().valueOf(),
       };
 
       dispatch(updateStreak(updatedUserData));
@@ -64,6 +82,17 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
 
   const { user } = useSelector((state) => state.auth);
 
+
+  //logging streak conditions
+  let userLast = new Date(user.last);
+  let todayDate = new Date(new Date().setHours(0, 0, 0, 1));
+  let yDayDate = new Date(new Date(todayDate).setDate(new Date().getDate() - 1));
+  console.log("user.last: ", userLast);
+  console.log("today: ", todayDate);
+  console.log("yesterday: ", yDayDate);
+  console.log('increment streak conditional: ', userLast < todayDate && userLast > yDayDate)
+
+  
   const handleWrong = (card) => {
     const newDate = new Date();
 

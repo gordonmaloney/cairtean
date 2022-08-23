@@ -145,7 +145,10 @@ function Header() {
         aria-describedby="modal-modal-description"
       >
         <Box
-          sx={{ ...MUIStyle.ModalStyleWide, backgroundColor: MUIStyle.offwhite }}
+          sx={{
+            ...MUIStyle.ModalStyleWide,
+            backgroundColor: MUIStyle.offwhite,
+          }}
         >
           <h3>Support Càirtean</h3>
           <br />
@@ -163,13 +166,14 @@ function Header() {
             and{" "}
             <a target="_blank" href="https://cuimhne.netlify.app/">
               <u>Cuimhne</u>
-            </a>{" "}
-            , and have big ambitions and plans for {" "}
+            </a>
+            , and have big ambitions and plans for{" "}
             <b>more Gaelic-learning software</b>.
             <br />
             <br />I know money is tight for everyone right now. But if you can
             spare just a few pounds, it will make it possible for me to carry on
-            working on <b>this app and other tools to help people learn Gaelic</b>.
+            working on{" "}
+            <b>this app and other tools to help people learn Gaelic</b>.
             <br />
             <br />
             <center>

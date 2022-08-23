@@ -15,6 +15,8 @@ import { Button } from "@mui/material";
 import Review from "./Review";
 import { Menu } from "./Menu";
 import AboutModal from "./AboutModal";
+import * as MUIStyle from "../MUIStyles";
+import { Grid } from "@mui/material";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -76,6 +78,83 @@ export const Home = () => {
       </section>
 
       <section className="content">
+        
+        {/*
+        new dashboard style - not ready
+        <div
+          style={{
+            marginTop: "30px",
+            width: "80%",
+            minWidth: "280px",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <Grid container spacing={2}>
+            <Grid item sm={6} xs={12}>
+              <div
+                style={{
+                  padding: "20px",
+                  margin: '10px',
+                  border: "1px solid grey",
+                  borderRadius: "10px",
+                }}
+              >
+                <p style={{ textAlign: "left" }}>Your deck has</p>
+                <br />
+                <h1>64 cards</h1>{" "}
+              </div>
+            </Grid>
+
+            <Grid item sm={6} xs={12}>
+              <div
+                style={{
+                  padding: "20px",
+                  margin: '10px',
+                  border: "1px solid grey",
+                  borderRadius: "10px",
+                }}
+              >
+                <p style={{ textAlign: "left" }}>Your streak is</p>
+                <br />
+                <h1>9 days</h1>{" "}
+              </div>
+            </Grid>
+            
+            
+            <Grid item sm={6} xs={12}>
+              <div
+                style={{
+                  padding: "20px",
+                  margin: '10px',
+                  border: "1px solid grey",
+                  borderRadius: "10px",
+                }}
+              >
+                <p style={{ textAlign: "left" }}>You've done</p>
+                <br />
+                <h1>100 reviews</h1>{" "}
+              </div>
+            </Grid>
+
+            <Grid item sm={6} xs={12}>
+              <div
+                style={{
+                  padding: "20px",
+                  margin: '10px',
+                  border: "1px solid grey",
+                  borderRadius: "10px",
+                }}
+              >
+                <p style={{ textAlign: "left" }}>You have</p>
+                <br />
+                <h1>studied today</h1>{" "}
+              </div>
+            </Grid>
+          </Grid>
+        </div>
+              */}
+
         <p
           style={{ maxWidth: "500px", marginLeft: "auto", marginRight: "auto" }}
         >
@@ -99,14 +178,32 @@ export const Home = () => {
             <>
               <br />
               <br />
-              Your current streak is{" "}
-              {user.streak == 1 ? `${user.streak} day` : `${user.streak} days`}
+              You are on a {user.streak} day streak
+              <br />
+              <br />
+              You have a total of{" "}
+              {cards
+                .map((card) => card.reviews)
+                .reduce(
+                  (previousValue, currentValue) => previousValue + currentValue
+                )}{" "}
+              reviews
               <br />
               <br />
               {user.last > new Date(today).setDate(new Date().getDate() - 1) &&
               user.last < new Date(today).setDate(new Date().getDate() + 1)
                 ? "You have studied today - good work!"
                 : "You haven't studied yet today"}
+              <br />
+              <br />
+              <Button
+                variant="contained"
+                style={MUIStyle.ButtonStyle}
+                size="large"
+                onClick={() => navigate("../study")}
+              >
+                Start studying
+              </Button>
               <br />
               <br />
               <AboutModal />

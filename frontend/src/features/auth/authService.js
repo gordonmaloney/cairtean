@@ -46,7 +46,6 @@ const updateStreak = async (userData, token) => {
 
 //get me
 const getMe = async (token) => {
-  console.log('getting me...', token)
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -55,7 +54,6 @@ const getMe = async (token) => {
 
   const response = await axios.get(API_URL + "me", config);
 
-  console.log(response.data)
   localStorage.clear('user')
   localStorage.setItem("user", JSON.stringify(response.data));
 
