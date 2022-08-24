@@ -1,20 +1,100 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateCard } from "../features/cards/cardSlice";
+import { updateCard, patchCard } from "../features/cards/cardSlice";
 import { updateStreak } from "../features/auth/authSlice";
 import Fab from "@mui/material/Fab";
-import { Grid } from "@mui/material";
+import { Box, Button, Grid, Snackbar, SnackbarContent } from "@mui/material";
 import * as MUIStyle from "../MUIStyles";
 import Tooltip from "@mui/material/Tooltip";
 import { FlashcardMicroDrawer } from "./FlashcardMicroDrawer";
-
+import { TextField } from "@mui/material";
 function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
   const [card, setCard] = useState(cardOne);
 
   useEffect(() => {
     setCard(cardOne);
   }, [cardOne]);
+
+  //typed answer logic
+  const [typeAnswer, setTypeAnswer] = useState(false);
+  const [typedAnswer, setTypedAnswer] = useState("");
+  const [snackbarMsg, setSnackbarMsg] = useState("");
+  const [correct, setCorrect] = useState(false);
+  const [incorrect, setIncorrect] = useState(false);
+  const [sracan, setSracan] = useState(true);
+
+  //remove sracan
+  const removeSracan = (string) => {
+    return [...string]
+      .map((letter) => {
+        return letter == "à"
+          ? "a"
+          : letter == "è"
+          ? "e"
+          : letter == "ì"
+          ? "i"
+          : letter == "ò"
+          ? "o"
+          : letter == "ù"
+          ? "u"
+          : letter;
+      })
+      .join("");
+  };
+
+  //snack logic
+  const [snackOpen, setSnackOpen] = useState(false);
+  const handleClick = () => {
+    setSnackOpen(true);
+  };
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackOpen(false);
+  };
+
+  const handleTypedSubmit = () => {
+    console.log(typedAnswer, card.back);
+
+    let processedAnswer;
+    let processedBack;
+
+    if (sracan) {
+      processedAnswer = removeSracan(typedAnswer.toLowerCase());
+      processedBack = removeSracan(card.back.toLowerCase());
+    } else {
+      processedAnswer = typedAnswer.toLowerCase();
+      processedBack = card.back.toLowerCase();
+    }
+
+    if (processedAnswer == processedBack) {
+      setSnackbarMsg("Correct!");
+      setSnackOpen(true);
+      setCorrect(true);
+      setThreeBox(true);
+      setTimeout(() => {
+        setThreeBox(false);
+        handleCorrect(card);
+        setTypedAnswer("");
+        setCorrect(false);
+      }, 1500);
+    } else if (processedAnswer != processedBack) {
+      setSnackbarMsg("Try again...");
+      setSnackOpen(true);
+      setIncorrect(true);
+      setTimeout(() => {
+        setIncorrect(false);
+      }, 1500);
+    }
+  };
+
+  const handleTypedGiveUp = () => {
+    console.log("giving up...");
+
+    setThreeBox(true);
+  };
 
   const [threeBox, setThreeBox] = useState(false);
 
@@ -82,17 +162,20 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
 
   const { user } = useSelector((state) => state.auth);
 
-
   //logging streak conditions
   let userLast = new Date(user.last);
   let todayDate = new Date(new Date().setHours(0, 0, 0, 1));
-  let yDayDate = new Date(new Date(todayDate).setDate(new Date().getDate() - 1));
+  let yDayDate = new Date(
+    new Date(todayDate).setDate(new Date().getDate() - 1)
+  );
   console.log("user.last: ", userLast);
   console.log("today: ", todayDate);
   console.log("yesterday: ", yDayDate);
-  console.log('increment streak conditional: ', userLast < todayDate && userLast > yDayDate)
+  console.log(
+    "increment streak conditional: ",
+    userLast < todayDate && userLast > yDayDate
+  );
 
-  
   const handleWrong = (card) => {
     const newDate = new Date();
 
@@ -185,9 +268,49 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
     dispatch(updateCard(updatedCard));
   };
 
+  //bury card
+  const buryCard = () => {
+    let newDelay = 90 + Math.floor(Math.random() * 90 + 1);
+    const updatedCard = { ...card };
+
+    let newDate = new Date().setDate(
+      new Date().getDate() + parseInt(card?.delay) + newDelay
+    );
+
+    updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
+    updatedCard.delay = 1;
+
+    console.log("burying...: ", updatedCard);
+    dispatch(updateCard(updatedCard));
+    incrementIndex();
+  };
+
+  //delete card
+  const deleteCard = () => {
+    console.log("delete ", card);
+
+    dispatch(patchCard(card));
+    incrementIndex();
+  };
+
   return (
     <>
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={1500}
+        onClose={handleCloseSnack}
+      >
+        <SnackbarContent
+          style={{
+            backgroundColor:
+              snackbarMsg == "Correct!" ? MUIStyle.blue : MUIStyle.purple,
+          }}
+          message={snackbarMsg}
+        />
+      </Snackbar>
+
       <Grid container sx={{ padding: "-20px" }} spacing={0}>
+        <Grid item xs={12}></Grid>
         <Grid item xs={12} sm={3}></Grid>
         <Grid item xs={12} sm={6}>
           <>
@@ -234,45 +357,130 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
               </div>
 
               <div className="flashcardFooter">
-                <div
-                  onClick={() => {
-                    setThreeBox(!threeBox);
-                  }}
-                  className={threeBox ? "threebox hide" : "threebox"}
-                >
-                  {!threeBox && "Show Answer"}
-                </div>
-                <div
-                  onClick={() => {
-                    setThreeBox(!threeBox);
-                    handleWrong(card);
-                  }}
-                  className={threeBox ? "onebox l2" : "onebox l1"}
-                >
-                  {threeBox && "Wrong"}
-                </div>
-                <div
-                  onClick={() => {
-                    setThreeBox(!threeBox);
-                    handleCorrect(card);
-                  }}
-                  className={threeBox ? "onebox c2" : "onebox c1"}
-                >
-                  {threeBox && <>Correct</>}
-                </div>
-                <div
-                  onClick={() => {
-                    setThreeBox(!threeBox);
-                    handleEasy(card);
-                  }}
-                  className={threeBox ? "onebox r2" : "onebox r1"}
-                >
-                  {threeBox && "Easy"}
-                </div>
+                {!typeAnswer ? (
+                  <>
+                    <div
+                      onClick={() => {
+                        setThreeBox(!threeBox);
+                      }}
+                      className={threeBox ? "threebox hide" : "threebox"}
+                    >
+                      {!threeBox && "Show Answer"}
+                    </div>
+                    <div
+                      onClick={() => {
+                        setThreeBox(!threeBox);
+                        handleWrong(card);
+                      }}
+                      className={threeBox ? "onebox l2" : "onebox l1"}
+                    >
+                      {threeBox && "Wrong"}
+                    </div>
+                    <div
+                      onClick={() => {
+                        setThreeBox(!threeBox);
+                        handleCorrect(card);
+                      }}
+                      className={threeBox ? "onebox c2" : "onebox c1"}
+                    >
+                      {threeBox && <>Correct</>}
+                    </div>
+                    <div
+                      onClick={() => {
+                        setThreeBox(!threeBox);
+                        handleEasy(card);
+                      }}
+                      className={threeBox ? "onebox r2" : "onebox r1"}
+                    >
+                      {threeBox && "Easy"}
+                    </div>
+                  </>
+                ) : (
+                  <TextField
+                    sx={{
+                      ...MUIStyle.FlashcardTextField,
+                      backgroundColor: correct
+                        ? MUIStyle.yellow
+                        : incorrect
+                        ? MUIStyle.purple
+                        : MUIStyle.blue,
+                    }}
+                    type="text"
+                    variant="filled"
+                    placeholder="Type your answer here..."
+                    value={typedAnswer}
+                    disabled={threeBox}
+                    onChange={(e) => setTypedAnswer(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        handleTypedSubmit();
+                      }
+                    }}
+                  />
+                )}
               </div>
             </div>
+            {typeAnswer && (
+              <>
+                {!threeBox && (
+                  <>
+                    <Button
+                      variant="contained"
+                      sx={MUIStyle.ButtonStyle}
+                      disabled={!typedAnswer}
+                      onClick={() => handleTypedSubmit()}
+                    >
+                      Submit
+                    </Button>{" "}
+                  </>
+                )}
+                {!threeBox ? (
+                  <Button
+                    variant="contained"
+                    sx={MUIStyle.ButtonStyleCancel}
+                    onClick={() => handleTypedGiveUp()}
+                  >
+                    Give up
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    sx={MUIStyle.ButtonStyleCancel}
+                    onClick={() => {
+                      handleWrong(card);
+                      setTypedAnswer("");
+                      setThreeBox(false);
+                    }}
+                  >
+                    Next card
+                  </Button>
+                )}
+                <br />
+                <br />
+                <Button
+                  variant="contained"
+                  sx={MUIStyle.ButtonStyle}
+                  onClick={() => setSracan(!sracan)}
+                  size="small"
+                >
+                  {sracan ? "Don't count accents" : "Count accents"}
+                </Button>
+                <br />
+                <br />
+              </>
+            )}
+
+            <Button
+              variant="contained"
+              sx={MUIStyle.ButtonStyle}
+              onClick={() => setTypeAnswer(!typeAnswer)}
+              size="small"
+            >
+              Turn typing {typeAnswer ? "off" : "on"}
+            </Button>
             <br />
-            {card.front != "" && (
+            <br />
+            {card.front != "" && !typeAnswer && (
               <p>
                 <b>Wrong</b> - retry
                 <br />
@@ -350,6 +558,8 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
         markKnown={markKnown}
         markHard={markHard}
         unTag={unTag}
+        buryCard={buryCard}
+        deleteCard={deleteCard}
       />
     </>
   );

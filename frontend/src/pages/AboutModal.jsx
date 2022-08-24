@@ -13,7 +13,7 @@ function AboutModal({ cards, noRemaining }) {
   return (
     <>
       <Button
-        sx={{...MUIStyle.ButtonStyle, marginBottom: '5px'}}
+        sx={{ ...MUIStyle.ButtonStyle, marginBottom: "5px" }}
         variant="contained"
         onClick={() => setOpen(true)}
         size="small"
@@ -42,17 +42,20 @@ function AboutModal({ cards, noRemaining }) {
             <br />
             When you are adding cards, you can chose to add your own custom
             cards, or add the words from a level in Duolingo. This way, you can
-            help {" "}
-            <b>reinforce the vocabulary</b> you are learning there.
+            help <b>reinforce the vocabulary</b> you are learning there.
             <br />
             <br />
             When you're revising, you have three options - 'wrong', 'correct',
             or 'easy'.{" "}
             <b>
-              Depending on your answer, Càirtean will show you that word again
+              Depending on your answer, Cairtean will show you that word again
               at the optimum time
             </b>{" "}
             - later the better you know it.
+            <br />
+            <br />
+            Alternatively, you can chose to type the answers in - and chose
+            whether or not you want the accents to count.
             <br />
             <br />
             This means you can{" "}
@@ -67,7 +70,7 @@ function AboutModal({ cards, noRemaining }) {
             study regularly, I hope it will do the same for you.
             <br />
             <br />
-            Càirtean is free to use, but <b>you can support it</b> - and other
+            Cairtean is free to use, but <b>you can support it</b> - and other
             Gaelic learning apps like{" "}
             <a target="_blank" href="facle.netlify.app">
               <u>Facle</u>

@@ -14,14 +14,15 @@ import { LoginLanding } from "./pages/LoginLanding";
 import { About } from "./pages/About";
 import { NewUser } from "./pages/NewUser";
 import { Footer } from "./components/Footer";
+import { StudyLanding } from "./pages/StudyLanding";
 
 function App() {
   return (
-    <div style={{  display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh'}}>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <Router>
-        <div className="container" style={{flex: 1}}>
+        <div className="container" style={{ flex: 1 }}>
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -39,7 +40,7 @@ function App() {
 
             <Route path="/newuser" element={<NewUser />} />
 
-
+            <Route path="/studylanding" element={<StudyLanding />} />
           </Routes>
         </div>
       </Router>

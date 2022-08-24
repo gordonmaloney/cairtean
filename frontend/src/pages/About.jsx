@@ -3,11 +3,11 @@ import React from "react";
 export const About = () => {
   return (
     <div>
-      <h1>Fàilte to Càirtean</h1>
+      <h1>Fàilte to Cairtean</h1>
       <br />
       <br />
       <p>
-        Càirtean is a flashcard app for learning Scottish Gaelic.
+        Cairtean is a flashcard app for learning Scottish Gaelic.
         <br />
         <br />
         It is designed to aid students learning with the Duolingo course, but
@@ -22,11 +22,11 @@ export const About = () => {
         you remember what you learn.
         <br />
         <br />
-        The name <em>Càirtean</em> is the Gaelic for "cards", but it is
-        pronounced almost identically to <em>càirdean</em> - "friends".
+        The name <em>Cairtean</em> is the Gaelic for "cards", but it is
+        pronounced a lot like to <em>càirdean</em> - "friends".
         <br />
         <br />
-        Càirtean is free to use, but you can support it - and other Gaelic
+        Cairtean is free to use, but you can support it - and other Gaelic
         learning apps like{" "}
         <a target="_blank" href="facle.netlify.app">
           <u>Facle</u>
@@ -56,7 +56,7 @@ export const About = () => {
         <br />
         <br />
         When you're revising, you have three options - 'wrong', 'correct', or
-        'easy'. Depending on your answer, Càirtean will show you that word again
+        'easy'. Depending on your answer, Cairtean will show you that word again
         at the optimum time - later the better you know it.
         <br />
         <br />
@@ -70,7 +70,7 @@ export const About = () => {
         regularly, I hope it will do the same for you.
         <br />
         <br />
-        Càirtean is free to use, but you can support it - and other Gaelic
+        Cairtean is free to use, but you can support it - and other Gaelic
         learning apps like{" "}
         <a target="_blank" href="facle.netlify.app">
           <u>Facle</u>

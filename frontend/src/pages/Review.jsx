@@ -91,7 +91,9 @@ function Review({ cards, forgottenCards }) {
     return (
       <>
         <center>
+          {/*
           <AboutModal />
+    */}
 
           <Flashcard
             cardOne={cardsDue[index]}

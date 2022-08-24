@@ -42,7 +42,7 @@ export const ModalStyleWide = {
 
 export const CheckBox = {
   color: blue,
-  '&.Mui-checked': {
+  "&.Mui-checked": {
     color: blue,
   },
 };
@@ -67,6 +67,21 @@ export const TextFieldStyle = {
   width: "100%",
   input: { color: grey },
   fontFamily: "Roboto",
+};
+
+export const FlashcardTextField = {
+  backgroundColor: blue,
+  width: "100%",
+  input: { color: grey },
+  fontFamily: "Roboto",
+  borderTop: `1px solid ${black}`,
+
+  input: {
+    marginX: "10px",
+    paddingTop: '13px',
+    paddingBottom: '20px',
+    textAlign: 'center'
+  },
 };
 
 export const ButtonStyle = {

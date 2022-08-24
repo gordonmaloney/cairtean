@@ -35,23 +35,23 @@ export const Footer = () => {
             }}
             
           >
-            <Hidden smDown><span>Share Càirtean:</span></Hidden>
+            <Hidden smDown><span>Share Cairtean:</span></Hidden>
             <div>
               <TwitterShareButton
                 url={`http://cairtean.gordonmaloney.info`}
-                title="I'm cramming Scottish Gaelic vocab with #càirtean - join me! "
+                title="I'm cramming Scottish Gaelic vocab with #cairtean - join me! "
               >
                 <TwitterIcon size={30} round />
               </TwitterShareButton>{" "}
               <FacebookShareButton
                 url={`http://cairtean.gordonmaloney.info`}
-                title="I'm cramming Scottish Gaelic vocab with #càirtean - join me! "
+                title="I'm cramming Scottish Gaelic vocab with #cairtean - join me! "
               >
                 <FacebookIcon size={30} round />
               </FacebookShareButton><Hidden smDown>{" "}
               <WhatsappShareButton
                 url={`http://cairtean.gordonmaloney.info`}
-                title="I'm cramming Scottish Gaelic vocab with #càirtean - join me! "
+                title="I'm cramming Scottish Gaelic vocab with #cairtean - join me! "
               >
                 <WhatsappIcon size={30} round />
               </WhatsappShareButton></Hidden>
@@ -92,7 +92,7 @@ export const Footer = () => {
                 sx={MUIStyle.ButtonStyle}
                 onClick={() => setOpen(true)}
               >
-                Support<Hidden smDown> Càirtean</Hidden>
+                Support<Hidden smDown> Cairtean</Hidden>
               </Button>
             </div>
           </Grid>

@@ -34,19 +34,19 @@ export const SocialShare = () => {
       <br />
       <TwitterShareButton
         url={`http://cairtean.gordonmaloney.info`}
-        title="I'm cramming Scottish Gaelic vocab with #càirtean - join me! "
+        title="I'm cramming Scottish Gaelic vocab with #cairtean - join me! "
       >
         <TwitterIcon size={40} round />
       </TwitterShareButton>{" "}
       <FacebookShareButton
         url={`http://cairtean.gordonmaloney.info`}
-        title="I'm cramming Scottish Gaelic vocab with #càirtean - join me! "
+        title="I'm cramming Scottish Gaelic vocab with #cairtean - join me! "
       >
         <FacebookIcon size={40} round />
       </FacebookShareButton>{" "}
       <WhatsappShareButton
         url={`http://cairtean.gordonmaloney.info`}
-        title="I'm cramming Scottish Gaelic vocab with #càirtean - join me! "
+        title="I'm cramming Scottish Gaelic vocab with #cairtean - join me! "
       >
         <WhatsappIcon size={40} round />
       </WhatsappShareButton>

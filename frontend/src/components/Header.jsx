@@ -67,7 +67,7 @@ function Header() {
               open menu
             </Button>
 
-            <h1 onClick={() => navigate("../")}>Càirtean</h1>
+            <h1 onClick={() => navigate("../")}>Cairtean</h1>
 
             <SwipeableDrawer
               anchor="left"
@@ -134,7 +134,7 @@ function Header() {
           sx={MUIStyle.ButtonStyle}
           onClick={() => setOpen(true)}
         >
-          Support Càirtean
+          Support Cairtean
         </Button>
       </div>
 
@@ -150,16 +150,16 @@ function Header() {
             backgroundColor: MUIStyle.offwhite,
           }}
         >
-          <h3>Support Càirtean</h3>
+          <h3>Support Cairtean</h3>
           <br />
           <br />
           <p>
-            Càirtean is free for you to use, but it took{" "}
+            Cairtean is free for you to use, but it took{" "}
             <b>a huge amount of time and energy</b> to build, requires{" "}
             <b>ongoing maintenance</b>, and <b>costs money</b> to host.
             <br />
             <br />
-            Alongside Càirtean, I have also built{" "}
+            Alongside Cairtean, I have also built{" "}
             <a target="_blank" href="facle.netlify.app">
               <u>Facle</u>
             </a>{" "}
