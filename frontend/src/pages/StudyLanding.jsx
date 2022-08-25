@@ -45,18 +45,43 @@ export const StudyLanding = () => {
     cards.length !== sessionCards.length &&
     setSessionCards(cards);
 
-  const forgottenCards = cards.filter(
-    (card) =>
-      card.lastForgotten > new Date().setHours(0, 0, 0, 1) &&
-      card.lastForgotten < new Date().getTime()
-  );
+  const [forgottenCards, setForgottenCards] = useState([]);
 
-  const levels = Array.from(new Set(WORDS.map((word) => word.level)));
+  if (
+    cards.length > 0 &&
+    forgottenCards.length !==
+      cards.filter(
+        (card) =>
+          card.lastForgotten > new Date().setHours(0, 0, 0, 1) &&
+          card.lastForgotten < new Date().getTime()
+      ).length
+  ) {
+    setForgottenCards(
+      cards.filter(
+        (card) =>
+          card.lastForgotten > new Date().setHours(0, 0, 0, 1) &&
+          card.lastForgotten < new Date().getTime()
+      )
+    );
+  }
+
+  //const levels = Array.from(new Set(WORDS.map((word) => word.level)));
+  const [levels, setLevels] = useState([]);
+
+  if (
+    cards &&
+    levels.length != Array.from(new Set(cards.map((word) => word.level))).length
+  ) {
+    setLevels(Array.from(new Set(cards.map((word) => word.level))));
+  }
 
   const [level, setLevel] = useState("Select a level");
 
   const [content, setContent] = useState("landing");
 
+  if (isLoading) {
+    return <>Loading...</>;
+  }
   if (content == "landing") {
     return (
       <div>
@@ -67,7 +92,7 @@ export const StudyLanding = () => {
         <Grid container>
           <Grid item xs={12} md={3}></Grid>
           <Grid item xs={12} md={6}>
-            <div onClick={() => setContent("study")}>
+            <div onClick={() => navigate('../study')}>
               <MenuCard
                 mini
                 content={
@@ -83,38 +108,58 @@ export const StudyLanding = () => {
           </Grid>
           <Grid item xs={12} md={3}></Grid>
 
-          <Grid item xs={12} sm={6}>
-            <div onClick={() => setContent("forgotten")}>
+          <Grid item xs={12} md={6}>
+            <div
+              onClick={() => {
+                forgottenCards.length > 0 && setContent("forgotten");
+              }}
+            >
               <MenuCard
                 content={
                   <div>
                     <h3>Study forgotten cards</h3>
                     <br />
                     <br />
-                    <p>
-                      You got{" "}
-                      {forgottenCards.length == 1
-                        ? "1 card"
-                        : `${forgottenCards.length} cards`}{" "}
-                      wrong today.
-                      <br />
-                      <br />
-                      Why not revise them to make sure you remember them?
-                    </p>
+                    {!isLoading && forgottenCards.length == 0 ? (
+                      <p>
+                        You've not gotten any cards wrong yet today. When you
+                        do, you can come here to review them.
+                      </p>
+                    ) : (
+                      <p>
+                        You got{" "}
+                        {forgottenCards.length == 1
+                          ? "1 card"
+                          : `${forgottenCards.length} cards`}{" "}
+                        wrong today.
+                        <br />
+                        <br />
+                        Why not revise them to make sure you remember them?
+                      </p>
+                    )}
                   </div>
                 }
               />
             </div>
           </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <div onClick={() => setContent("level")}>
-              <MenuCard
-                content={
-                  <div>
-                    <h3>Study from level</h3>
-                    <br />
-                    <br />
+          <Grid item xs={12} md={6}>
+            <MenuCard
+              content={
+                <div>
+                  <h3>Study from level</h3>
+                  <br />
+                  <br />
+
+                  {console.log(levels)}
+                  {!isLoading && levels.length < 2 && (
+                    <p>
+                      Once you add words from levels in Duolingo, you can focus
+                      your study on them here.
+                    </p>
+                  )}
+
+                  {!isLoading && levels.length > 1 && (
                     <Grid container>
                       <Grid item xs={6}>
                         <p style={{ textAlign: "left" }}>
@@ -125,7 +170,10 @@ export const StudyLanding = () => {
                       <Grid item xs={6}>
                         <Select
                           size="small"
-                          sx={MUIStyle.SelectStyle}
+                          sx={{
+                            ...MUIStyle.SelectStyle,
+                            backgroundColor: MUIStyle.offwhite,
+                          }}
                           id="levelSelector"
                           label="Select a level"
                           value={level ? level : "Select a level"}
@@ -136,23 +184,27 @@ export const StudyLanding = () => {
                           <MenuItem value="Select a level">
                             Select a level
                           </MenuItem>
-                          {levels.map((level) => (
-                            <MenuItem value={level}>{level}</MenuItem>
-                          ))}
+                          {levels.length > 0 &&
+                            levels.map((level, index) => (
+                              <MenuItem key={index} value={level}>
+                                {level}
+                              </MenuItem>
+                            ))}
                         </Select>
                         <br />
                         <Button
+                          onClick={() => setContent("level")}
                           disabled={level == "Select a level"}
                           sx={{ ...MUIStyle.ButtonStyle, marginTop: "5px" }}
                         >
-                          Start studying
+                          Study
                         </Button>
                       </Grid>
                     </Grid>
-                  </div>
-                }
-              />
-            </div>
+                  )}
+                </div>
+              }
+            />
           </Grid>
         </Grid>
       </div>
@@ -197,7 +249,7 @@ export const StudyLanding = () => {
           Back
         </Button>
 
-        <Study />
+        <Study forgottenOnly />
       </>
     );
   }
@@ -219,7 +271,7 @@ export const StudyLanding = () => {
           Back
         </Button>
 
-        <Study />
+        <Study level={level} />
       </>
     );
   }

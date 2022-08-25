@@ -32,7 +32,7 @@ function AboutModal({ cards, noRemaining }) {
           <br />
           <br />
           <p>
-            Long-story short, you{" "}
+            It's simple, you{" "}
             <b>
               add cards with vocabulary you want to learn to your deck, and you
               revise them

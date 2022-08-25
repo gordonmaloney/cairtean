@@ -5,16 +5,29 @@ import * as MUIStyle from "../MUIStyles";
 import { SocialShare } from "../components/SocialShare";
 
 import AboutModal from "./AboutModal";
+import { useEffect } from "react";
 
-function Review({ cards, forgottenCards }) {
+function Review({ cards, forgottenCards, level }) {
   const [index, setIndex] = useState(0);
 
-  const [cardsDue, setCardsDue] = useState(
-    cards
-      .filter((card) => card.tag != "known")
-      .filter((card) => new Date() > new Date(card.date))
-      .sort((a, b) => a.date - b.date)
-  );
+  const [cardsDue, setCardsDue] = useState([]);
+
+  useEffect(() => {
+    if (!level && cards) {
+      setCardsDue(
+        cards
+          .filter((card) => card.tag != "known")
+          .filter((card) => new Date() > new Date(card.date))
+          .sort((a, b) => a.date - b.date)
+      );
+    }
+    if (!cards && forgottenCards) {
+      setCardsDue(forgottenCards);
+    }
+    if (level) {
+      setCardsDue(cards)
+    }
+  }, [cards]);
 
   const [card, setCard] = useState(cardsDue[index]);
 
@@ -38,7 +51,7 @@ function Review({ cards, forgottenCards }) {
           sx={MUIStyle.ButtonStyle}
           variant="contained"
           onClick={() => {
-            setCardsDue(forgottenCards);
+           setCardsDue(forgottenCards);
           }}
         >
           Review forgotten cards

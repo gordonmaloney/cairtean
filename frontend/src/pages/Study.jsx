@@ -10,8 +10,9 @@ import {
 import { updateStreak } from "../features/auth/authSlice";
 
 import Review from "./Review";
+import cardService from "../features/cards/cardService";
 
-export const Study = () => {
+export const Study = ({ forgottenOnly, level }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -35,13 +36,21 @@ export const Study = () => {
     return () => {
       dispatch(reset());
     };
-  }, [isError, user, dispatch]);
+  }, [isError, user]);
 
   //set sessionCards
   const [sessionCards, setSessionCards] = useState([]);
-  cards.length > 0 &&
+
+  !level &&
+    cards.length > 0 &&
     cards.length !== sessionCards.length &&
     setSessionCards(cards);
+
+  level &&
+    cards.length > 0 &&
+    cards.filter((card) => card.level == level).length !==
+      sessionCards.length &&
+    setSessionCards(cards.filter((card) => card.level == level));
 
   const forgottenCards = cards.filter(
     (card) =>
@@ -52,7 +61,7 @@ export const Study = () => {
   if (sessionCards.length < 1) {
     return (
       <>
-        {cards.length == 0 ? (
+        {cards.length == 0 && !isLoading ? (
           <>
             <p
               style={{
@@ -86,7 +95,11 @@ export const Study = () => {
 
   return (
     <>
-      <Review cards={sessionCards} forgottenCards={forgottenCards} />
+      <Review
+        cards={!forgottenOnly && sessionCards}
+        forgottenCards={forgottenCards}
+        level
+      />
     </>
   );
 };

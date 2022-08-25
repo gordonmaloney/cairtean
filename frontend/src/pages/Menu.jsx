@@ -41,7 +41,7 @@ export const Menu = () => {
                 <p>Review your cards and maintain your streak!</p>
               </div>
             }
-            link="../study"
+            link="../studylanding"
           />
         </Grid>
 

@@ -106,21 +106,9 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
     //check streak
     let today = new Date(new Date().setHours(0, 0, 0, 1));
 
-    console.log(user.last);
     console.log(
       user.last > new Date(today).setDate(new Date().getDate() - 1) &&
         user.last < new Date(today).setDate(new Date().getDate())
-    );
-
-    console.log(user.last > new Date(today).setDate(new Date().getDate() - 1));
-
-    console.log(user.last < new Date(today).setDate(new Date().getDate()));
-
-    console.log(
-      user.last,
-      new Date(today).setDate(new Date().getDate() - 1),
-      user.last,
-      new Date(today).setDate(new Date().getDate())
     );
 
     if (
@@ -168,13 +156,6 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
   let yDayDate = new Date(
     new Date(todayDate).setDate(new Date().getDate() - 1)
   );
-  console.log("user.last: ", userLast);
-  console.log("today: ", todayDate);
-  console.log("yesterday: ", yDayDate);
-  console.log(
-    "increment streak conditional: ",
-    userLast < todayDate && userLast > yDayDate
-  );
 
   const handleWrong = (card) => {
     const newDate = new Date();
@@ -207,12 +188,13 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
     ) {
       updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
       updatedCard.delay = parseInt(card?.delay) * 1.6 + 1;
-    } else if (card.tag == "hard") {
+    } else {
       updatedCard.date = new Date(tomorrow).setHours(0, 0, 0, 1);
       updatedCard.delay = 1;
     }
     updatedCard.reviews++;
 
+    console.log("updated card: ", updatedCard);
     handleUpdate(updatedCard);
   };
 
@@ -255,7 +237,6 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
     updatedCard.tag = "known";
     setCard({ ...card, tag: "known" });
 
-    console.log(updatedCard);
     dispatch(updateCard(updatedCard));
     incrementIndex();
   };
@@ -280,15 +261,12 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
     updatedCard.date = new Date(newDate).setHours(0, 0, 0, 1);
     updatedCard.delay = 1;
 
-    console.log("burying...: ", updatedCard);
     dispatch(updateCard(updatedCard));
     incrementIndex();
   };
 
   //delete card
   const deleteCard = () => {
-    console.log("delete ", card);
-
     dispatch(patchCard(card));
     incrementIndex();
   };
