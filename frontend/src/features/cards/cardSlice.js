@@ -84,6 +84,7 @@ export const getCards = createAsyncThunk(
 export const updateCard = createAsyncThunk(
   "cards/updateCard",
   async (cardData, thunkAPI) => {
+    console.log('from slice - ', cardData)
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await cardService.updateCard(cardData, token);

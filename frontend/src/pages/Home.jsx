@@ -78,7 +78,6 @@ export const Home = () => {
       </section>
 
       <section className="content">
-        
         {/*
         new dashboard style - not ready
         <div
@@ -159,7 +158,7 @@ export const Home = () => {
           style={{ maxWidth: "500px", marginLeft: "auto", marginRight: "auto" }}
         >
           <br />
-          You have got {cards && cards.length} cards in your deck
+          You have got <b>{cards && cards.length} cards</b> in your deck
           {cards.length == 0 ? (
             <>
               <br />
@@ -178,22 +177,31 @@ export const Home = () => {
             <>
               <br />
               <br />
-              You are on a {user.streak} day streak
+              You are on a <b>{user.streak} day streak</b>
               <br />
               <br />
               You have a total of{" "}
-              {cards
-                .map((card) => card.reviews)
-                .reduce(
-                  (previousValue, currentValue) => previousValue + currentValue
-                )}{" "}
-              reviews
+              <b>
+                {cards
+                  .map((card) => card.reviews)
+                  .reduce(
+                    (previousValue, currentValue) =>
+                      previousValue + currentValue
+                  )}{" "}
+                reviews
+              </b>
               <br />
               <br />
               {user.last > new Date(today).setDate(new Date().getDate() - 1) &&
-              user.last < new Date(today).setDate(new Date().getDate() + 1)
-                ? "You have studied today - good work!"
-                : "You haven't studied yet today"}
+              user.last < new Date(today).setDate(new Date().getDate() + 1) ? (
+                <>
+                  You <b>have studied</b> today - good work!
+                </>
+              ) : (
+                <>
+                  You <b>haven't studied</b> yet today
+                </>
+              )}
               <br />
               <br />
               <Button

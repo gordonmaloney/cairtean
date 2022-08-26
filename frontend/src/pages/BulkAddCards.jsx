@@ -122,6 +122,7 @@ function BulkAddCards() {
                 size="small"
                 onClick={(level) => {
                   handleSelectLevel(level);
+                  cards.filter((card) => card.level == level).length > 0 ? setDuplicate(true) : setDuplicate(false)
                 }}
                 key={index}
                 //disabled={cards.find((card) => card.level == level) != undefined}

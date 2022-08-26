@@ -47,18 +47,16 @@ const getCards = async (token) => {
 //update card
 const updateCard = async (cardData, token) => {
 
-  console.log(cardData, token)
-
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  console.log(API_URL, cardData, config)
 
   const response = await axios.put(API_URL, cardData, config);
 
+  console.log('response: ', response.data)
   return response.data;
 };
 

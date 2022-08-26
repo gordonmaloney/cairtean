@@ -268,7 +268,14 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
   //delete card
   const deleteCard = () => {
     dispatch(patchCard(card));
-    incrementIndex();
+    //incrementIndex();
+  };
+
+  const editCard = (updatedCard) => {
+
+    console.log(updatedCard)
+    setCard(updatedCard);
+    dispatch(updateCard(updatedCard));
   };
 
   return (
@@ -538,6 +545,7 @@ function Flashcard({ cardOne, remaining, pushWrongCard, incrementIndex }) {
         unTag={unTag}
         buryCard={buryCard}
         deleteCard={deleteCard}
+        editCard={(updatedCard) => editCard(updatedCard)}
       />
     </>
   );

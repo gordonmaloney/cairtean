@@ -29,7 +29,10 @@ function App() {
             <Route path="/login" element={<LoginLanding />} />
             <Route path="/register" element={<Register />} />
 
-            <Route path="/study" element={<Study />} />
+            <Route exact path="/study" element={<Study />} />
+            <Route path="/studyForgotten" element={<Study forgottenOnly />} />
+            <Route path="/studyLevel/:level" element={<Study level />} />
+
 
             <Route path="/add" element={<AddCards />} />
             <Route path="/bulk" element={<BulkAddCards />} />

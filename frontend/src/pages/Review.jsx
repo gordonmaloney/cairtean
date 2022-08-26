@@ -21,13 +21,16 @@ function Review({ cards, forgottenCards, level }) {
           .sort((a, b) => a.date - b.date)
       );
     }
-    if (!cards && forgottenCards) {
+    if (!cards && forgottenCards.length > 0) {
       setCardsDue(forgottenCards);
     }
     if (level) {
       setCardsDue(cards)
     }
-  }, [cards]);
+  }, [cards, forgottenCards.length]);
+
+  console.log(level)
+  console.log(!cards && forgottenCards.length > 0)
 
   const [card, setCard] = useState(cardsDue[index]);
 

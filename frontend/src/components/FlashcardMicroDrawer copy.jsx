@@ -3,21 +3,12 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { Box } from "@mui/system";
 import { Button, Grid } from "@mui/material";
 import * as MUIStyles from "../MUIStyles";
-import * as MUIStyle from "../MUIStyles";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import useWindowDimensions from "./useWindowDimensions";
 import Modal from "@mui/material/Modal";
-import {
-  Hidden,
-  FormLabel,
-  MenuItem,
-  TextField,
-  InputLabel,
-  Select,
-} from "@mui/material";
-import { useEffect } from "react";
+
 export const FlashcardMicroDrawer = ({
   card,
   markHard,
@@ -25,20 +16,12 @@ export const FlashcardMicroDrawer = ({
   unTag,
   buryCard,
   deleteCard,
-  editCard,
 }) => {
   const [drawer, setDrawer] = useState(false);
 
-  //about modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  //update modal
-  const [openUpdate, setOpenUpdate] = useState(false);
-  const handleOpenUpdate = () => setOpenUpdate(true);
-  const handleCloseUpdate = () => setOpenUpdate(false);
-  const [update, setUpdate] = useState("");
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event) {
@@ -58,21 +41,6 @@ export const FlashcardMicroDrawer = ({
     justifyContent: width > 450 ? "space-between" : "space-evenly",
     height: width > 450 ? "25vh" : "30vh",
   };
-
-  const [cardData, setCardData] = useState("");
-
-  useEffect(() => {
-    setCardData({
-      front: card.front,
-      back: card.back,
-      date: card.date,
-      delay: card.delay,
-      reviews: card.reviews,
-      tag: card.tag,
-      lastForgotten: card.lastForgotten,
-      _id: card._id,
-    });
-  }, [card]);
 
   return (
     <div>
@@ -133,6 +101,7 @@ export const FlashcardMicroDrawer = ({
 
             {card.tag ? (
               <>
+                <Grid item xs={3}></Grid>
                 <Grid item xs={6} sx={gridSx}>
                   <h3>Untag card</h3>
                   <p>
@@ -151,7 +120,7 @@ export const FlashcardMicroDrawer = ({
             ) : (
               <>
                 <Grid item xs={6} md={3} sx={gridSx}>
-                  <h3>Tag Card as 'hard'</h3>
+                  <h3>Tag card as 'hard'</h3>
                   <p>
                     This means you'll see the card every day until you untag it.
                   </p>
@@ -164,8 +133,11 @@ export const FlashcardMicroDrawer = ({
                   </Button>
                 </Grid>
                 <Grid item xs={6} md={3} sx={gridSx}>
-                  <h3>Tag Card as 'known'</h3>
-                  <p>This removes the card from your daily reviews.</p>
+                  <h3>Tag card as 'known'</h3>
+                  <p>
+                    This removes the card from your daily
+                    reviews.
+                  </p>
 
                   <Button
                     variant="contained"
@@ -186,7 +158,7 @@ export const FlashcardMicroDrawer = ({
                 </p>
                 <Button
                   variant="contained"
-                  sx={MUIStyles.ButtonStyle}
+                  sx={MUIStyles.EditButton}
                   onClick={() => buryCard()}
                 >
                   Bury card
@@ -195,26 +167,14 @@ export const FlashcardMicroDrawer = ({
             </Grid>
             <Grid item xs={6} md={3} sx={gridSx}>
               <>
-                <h3>Update Card</h3>
-
-                <Button
-                  variant="contained"
-                  sx={{ ...MUIStyles.ButtonStyle, m: 1 }}
-                  onClick={() => {
-                    setOpenUpdate(true);
-                    setUpdate("edit");
-                  }}
-                >
-                  Edit card
-                </Button>
-
+                <h3>Delete Card</h3>
+                <p>
+                  This <b>cannot be undone</b>, so use with caution!
+                </p>
                 <Button
                   variant="contained"
                   sx={MUIStyles.ButtonStyleCancel}
-                  onClick={() => {
-                    setOpenUpdate(true);
-                    setUpdate("delete");
-                  }}
+                  onClick={() => deleteCard()}
                 >
                   Delete card
                 </Button>
@@ -301,195 +261,6 @@ export const FlashcardMicroDrawer = ({
               Close
             </Button>
           </center>
-        </Box>
-      </Modal>
-
-      <Modal
-        open={openUpdate}
-        onClose={handleCloseUpdate}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={{ ...MUIStyles.ModalStyle, backgroundColor: MUIStyles.white }}>
-          {update == "edit" ? (
-            <>
-              <h3>Edit Card</h3>
-              <br />
-              <br />
-              <Grid container spacing={2}>
-                <Hidden smDown>
-                  <Grid
-                    item
-                    xs={2}
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    <FormLabel sx={MUIStyle.LabelStyle} htmlFor="front">
-                      Front
-                    </FormLabel>
-                  </Grid>
-                </Hidden>
-
-                <Grid item xs={12} md={10}>
-                  <TextField
-                    sx={MUIStyle.TextFieldStyle}
-                    type="text"
-                    name="front"
-                    id="front"
-                    value={cardData.front}
-                    placeholder="Front of card"
-                    onChange={(e) =>
-                      setCardData({ ...cardData, front: e.target.value })
-                    }
-                  />
-                </Grid>
-
-                <Hidden smDown>
-                  <Grid
-                    item
-                    xs={2}
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    <FormLabel sx={MUIStyle.LabelStyle} htmlFor="back">
-                      Back
-                    </FormLabel>
-                  </Grid>
-                </Hidden>
-                <Grid item xs={12} md={10}>
-                  <TextField
-                    sx={MUIStyle.TextFieldStyle}
-                    type="text"
-                    name="back"
-                    id="back"
-                    value={cardData.back}
-                    placeholder="Enter the back of the card here"
-                    onChange={(e) =>
-                      setCardData({ ...cardData, back: e.target.value })
-                    }
-                  />
-                </Grid>
-
-                <Hidden smDown>
-                  <Grid
-                    item
-                    xs={2}
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    <InputLabel id="tagSelector" sx={MUIStyle.LabelStyle}>
-                      Tag
-                    </InputLabel>
-                  </Grid>
-                </Hidden>
-
-                <Grid item xs={12} md={10}>
-                  {cardData.tag ? (
-                    <>
-                      <Button disabled sx={MUIStyle.EditButton}>
-                        {cardData.tag}
-                      </Button>
-                      <Button
-                        sx={{
-                          ...MUIStyle.ButtonStyleCancel,
-                          padding: "5px",
-                          marginX: 2,
-                          minWidth: 0,
-                          height: "35px",
-                          width: "35px",
-                          borderRadius: "100px",
-                        }}
-                        onClick={() => setCardData({ ...cardData, tag: "" })}
-                      >
-                        x
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Select
-                        sx={MUIStyle.SelectStyle}
-                        value={cardData.tag ? cardData.tag : "Add a tag"}
-                        id="tagSelector"
-                        label="Add a tag"
-                        onChange={(e) => {
-                          e.target.value != "Add a tag" &&
-                            setCardData({ ...cardData, tag: e.target.value });
-                        }}
-                      >
-                        <MenuItem value="Add a tag">Add a tag</MenuItem>
-                        <MenuItem value="known">known</MenuItem>
-                        <MenuItem value="hard">hard</MenuItem>
-                      </Select>
-                    </>
-                  )}
-                </Grid>
-
-                <Grid item xs={12}>
-                  <center>
-                    <Button
-                      sx={MUIStyle.ButtonStyle}
-                      variant="contained"
-                      onClick={() => {
-                        editCard(cardData);
-                        setOpenUpdate(false);
-                      }}
-                      disabled={!cardData.front || !cardData.back}
-                    >
-                      Update Card
-                    </Button>
-                    <br />
-                    <br />
-                    <Button
-                      sx={MUIStyle.ButtonStyle}
-                      variant="contained"
-                      onClick={() => {
-                        setOpenUpdate(false);
-                        setCardData({
-                          front: card.front,
-                          back: card.back,
-                          date: card.date,
-                          delay: card.delay,
-                          reviews: card.reviews,
-                          tag: card.tag,
-                          lastForgotten: card.lastForgotten,
-                        });
-                      }}
-                    >
-                      Cancel{" "}
-                    </Button>
-                  </center>
-                </Grid>
-              </Grid>
-            </>
-          ) : (
-            <>
-              <h3>Delete Card</h3>
-              <br />
-              <br />
-              <p>
-                Are you sure you want to delete this card? This cannot be
-                undone.
-              </p>
-              <center>
-                <Button
-                  variant="contained"
-                  sx={MUIStyles.ButtonStyle}
-                  onClick={() => {
-                    deleteCard(card);
-                    setOpenUpdate(false);
-                  }}
-                >
-                  Confirm
-                </Button>
-                <br />
-                <br />
-                <Button
-                  sx={MUIStyles.ButtonStyleCancel}
-                  variant="contained"
-                  onClick={() => handleCloseUpdate()}
-                >
-                  Cancel
-                </Button>
-              </center>
-            </>
-          )}
         </Box>
       </Modal>
     </div>

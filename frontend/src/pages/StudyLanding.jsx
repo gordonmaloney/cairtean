@@ -3,7 +3,7 @@ import { WORDS } from "./WORDS";
 import * as MUIStyle from "../MUIStyles";
 import { MenuCard } from "../components/MenuCard";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCards,
@@ -37,10 +37,11 @@ export const StudyLanding = () => {
     return () => {
       dispatch(reset());
     };
-  }, [isError, user, dispatch]);
+  }, [isError, user]);
 
   //set sessionCards
   const [sessionCards, setSessionCards] = useState([]);
+  
   cards.length > 0 &&
     cards.length !== sessionCards.length &&
     setSessionCards(cards);
@@ -109,11 +110,7 @@ export const StudyLanding = () => {
           <Grid item xs={12} md={3}></Grid>
 
           <Grid item xs={12} md={6}>
-            <div
-              onClick={() => {
-                forgottenCards.length > 0 && setContent("forgotten");
-              }}
-            >
+            <Link to="../studyForgotten">
               <MenuCard
                 content={
                   <div>
@@ -140,7 +137,7 @@ export const StudyLanding = () => {
                   </div>
                 }
               />
-            </div>
+            </Link>
           </Grid>
 
           <Grid item xs={12} md={6}>
@@ -193,7 +190,7 @@ export const StudyLanding = () => {
                         </Select>
                         <br />
                         <Button
-                          onClick={() => setContent("level")}
+                          onClick={() => navigate(`../studyLevel/${level}`)}
                           disabled={level == "Select a level"}
                           sx={{ ...MUIStyle.ButtonStyle, marginTop: "5px" }}
                         >

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCards,
@@ -8,13 +8,17 @@ import {
   isLoading,
 } from "../features/cards/cardSlice";
 import { updateStreak } from "../features/auth/authSlice";
-
 import Review from "./Review";
 import cardService from "../features/cards/cardService";
+import * as MUIStyle from "../MUIStyles";
+import { Button } from "@mui/material";
 
-export const Study = ({ forgottenOnly, level }) => {
+export const Study = ({ forgottenOnly }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const params = useParams();
+
+  const { level } = params;
 
   const { user } = useSelector((state) => state.auth);
 
@@ -95,10 +99,26 @@ export const Study = ({ forgottenOnly, level }) => {
 
   return (
     <>
+      {(forgottenOnly ||
+        level) && (
+          <Button
+            onClick={() => {
+              navigate("../studylanding");
+            }}
+            size="small"
+            sx={{
+              ...MUIStyle.ButtonStyleCancel,
+              float: "left",
+              marginTop: "-50px",
+            }}
+          >
+            Back
+          </Button>
+        )}
       <Review
         cards={!forgottenOnly && sessionCards}
-        forgottenCards={forgottenCards}
-        level
+        forgottenCards={forgottenCards && forgottenCards}
+        level={level}
       />
     </>
   );
