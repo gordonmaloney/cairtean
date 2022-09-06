@@ -127,9 +127,91 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
+const getStats = async (req, res) => {
+  const users = await User.find();
+
+  const totalCards = users
+    .map((user) => user.cards.length)
+    .reduce((previousValue, currentValue) => previousValue + currentValue);
+
+  const totalReviews = users.map((user) =>
+    user.cards.map((card) => card.reviews)
+  );
+
+  const reducedReviews = [].concat
+    .apply([], totalReviews)
+    .reduce((previousValue, currentValue) => previousValue + currentValue);
+
+  const maxStreak = Math.max(...users.map((user) => user.streak));
+
+  var streaksArray = [];
+
+  for (i = 0; i < maxStreak + 1; i++) {
+    streaksArray.push(
+      "streak length " +
+        i +
+        ": " +
+        users.filter((user) => user.streak == i).length
+    );
+  }
+
+  res.status(201).json({
+    "total users": users.length,
+    "total cards": totalCards,
+    "total reviews": reducedReviews,
+    "max streak": maxStreak,
+    streaks: streaksArray,
+  });
+};
+
+
+const changePassword = asyncHandler(async (req, res) => {
+  
+console.log(req.body)
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    res.status(400);
+    throw new Error("Please add all fields");
+  }
+
+  //check if user exists
+  const userExists = await User.findOne({ email });
+
+  if (!userExists) {
+    res.status(400);
+    throw new Error("User doesn't exist");
+  }
+
+  //hash new password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  //create user
+  const user = await User.findOneAndUpdate({ email }, 
+    { name, email, password: hashedPassword }
+    )
+
+  if (user) {
+    res.status(201).json({
+      _id: user.id,
+      name: user.name,
+      email,
+      token: generateToken(user._id),
+      last: user.last,
+      streak: user.streak,
+    });
+  } else {
+    res.status(400);
+    throw new Error("invalid user data");
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
   getMe,
   updateStreak,
+  getStats,
+  changePassword
 };
